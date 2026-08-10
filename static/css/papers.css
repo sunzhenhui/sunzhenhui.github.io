@@ -116,6 +116,13 @@ body {
   background: #1a1a2e;
   color: #fff;
 }
+.hero .links a.disabled,
+.hero .links a[href="#"] {
+  background: #e8eaed;
+  color: #8b949e;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 /* ===== Teaser ===== */
 .teaser {
