@@ -11,7 +11,7 @@
 
 <nav class="back-nav">
   <div class="container">
-    <a href="../">← Zhenhui Sun</a>
+    <a href="../">Zhenhui Sun</a>
   </div>
 </nav>
 
@@ -20,10 +20,11 @@
     <span class="venue-tag">Cities · 2024</span>
     <h1>Temporal-VCA: Simulating urban land use change using coupled temporal data and vector cellular automata</h1>
     <p class="authors">
-      Yao Yao, Kun Zhou, Chenxi Liu, <strong>Zhenhui Sun</strong>, Dongsheng Chen, Linlong Li, Tao Cheng, Qingfeng Guan
+      Yao Yao<sup>*</sup>, Kun Zhou, Chenxi Liu, <strong>Zhenhui Sun</strong>, Dongsheng Chen, Linlong Li, Tao Cheng, Qingfeng Guan
     </p>
+    <p class="note">* Corresponding author.</p>
     <p class="venue">Cities · 2024</p>
-    <p class="meta">DOI: <a href="https://doi.org/10.1016/j.cities.2024.104975" target="_blank">10.1016/j.cities.2024.104975</a> · ISSN: 0264-2751</p>
+    <p class="meta">DOI: <a href="https://doi.org/10.1016/j.cities.2024.104975" target="_blank">10.1016/j.cities.2024.104975</a></p>
     <div class="links">
       <a href="https://doi.org/10.1016/j.cities.2024.104975" target="_blank">Paper</a>
       <a href="https://doi.org/10.1016/j.cities.2024.104975" target="_blank">DOI</a>
@@ -42,28 +43,422 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>Temporal-VCA extends the vector cellular automata framework by coupling temporal data to simulate urban land use change, capturing dynamic spatiotemporal patterns with improved accuracy for urban planning applications.</p>
+    <p>
+      Vector cellular automata (VCA) are effective models for cadastral-scale land use change modeling, leveraging
+      fine spatial granularity information from cadastral plot data. The temporal dimension has the potential to
+      improve the performance of VCA further. However, it is challenging to precisely capture long sequence information
+      of cadastral plot temporal data for VCA while ensuring accurate capture of fine granularity information
+      simultaneously. Our paper introduces the <strong>Temporal-VCA</strong> framework, which fully utilizes fine spatial and temporal
+      granularity information of cadastral plot temporal data to enhance the accuracy of VCA. Applying Shenzhen's
+      annual cadastral plot data from 2009 to 2014, this study shows how deep learning techniques can elucidate the
+      temporal aspects of VCA models. Temporal-VCA notably improves precision by up to <strong>22.12%</strong>, outperforming the
+      regular VCA models and traditional raster CA models. It reveals the complex nonlinear temporal patterns within
+      cadastral-scale urban development processes. Designed simulations for 2030, including scenarios of
+      <strong>disordered development</strong> and <strong>ecological protection</strong>, highlight the benefits of fully leveraging fine
+      temporal granularity information of temporal data into urban planning, potentially <strong>reducing ecological damage
+      by 70%</strong>. Our findings offer a novel methodology for urban land use simulation, with significant implications for
+      urban planning and the advancement of sustainable cities.
+    </p>
+    <div class="keywords">
+      <span>Keywords: </span>
+      <span class="tag">Vector cellular automata</span>
+      <span class="tag">Deep learning</span>
+      <span class="tag">Temporal data</span>
+      <span class="tag">Land use change simulation</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>
+      In recent years, global cities have experienced a rapid development stage and have had a significant impact on
+      the ecological environment. Urban land use change refers to the changes in spatial distribution and functional
+      structure of various types of land within and around a city that occur with urbanization. Simulation of urban
+      land use change can help optimize the structure and spatial layout of urban land use, and deepen the
+      understanding of the impact mechanism of urbanization on land use change.
+    </p>
+    <p>
+      Cellular Automata (CA), as a classic type of spatial dynamics model, has a "bottom-up" characteristic and can
+      retain more foundation and details in the dynamic system, gradually occupying a dominant position in urban land
+      change simulation. Traditional CA models are based on regularly shaped raster-format units, setting specific
+      transformation rules to change cell states and simulate the spatiotemporal dynamic changes of urban development.
+      Due to the spatial heterogeneity of land use characteristics, boundary conditions usually need to be considered
+      in simulations. In raster CA models, handling boundary conditions can be a challenge. The <strong>vector CA (VCA)</strong>
+      model is more accurate in simulating geographical features and land use boundaries at small cadastral scales.
+    </p>
+    <p>
+      Time could be a potential dimension to further improve the performance of VCA in simulating land use change.
+      The different potential temporal periodic patterns exist for different land use changes and affect the overall
+      dynamics of urban land use. However, the time dependence in VCA model still needs to be further explored. It
+      is more challenging for such fine-grained VCA models to precisely decouple the time dependence of
+      cadastral-scale land use time series while ensuring the accurate capture of fine spatial granularity
+      information simultaneously.
+    </p>
+    <p>
+      Research has confirmed that <strong>deep learning models</strong> can effectively mine time series information and achieve the
+      expected results. Thus, deep learning techniques provide an opportunity to enhance VCA's ability to capture
+      long sequence information, thus further improving the performance of VCA to simulate cadastral-scale land use
+      changes accurately. This paper proposes a <strong>Temporal-VCA</strong> framework for simulating urban land use change, which
+      couples long sequence of cadastral plot data and VCA. This framework takes Shenzhen, Guangdong Province, as
+      the study area, based on fine-spatially-grained and long-sequence cadastral land use time series data.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>2. Literature Review</h2>
+
+    <h3>2.1 Vector cellular automata models for urban land use simulations</h3>
+    <p>
+      With the refinement of simulation methods, vector CA (VCA) models based on irregularly shaped vector-format
+      cells have been proposed and proven to be a more advanced model for urban change simulation. Urban land
+      renewal typically occurs on cadastral land parcels. However, traditional raster CA models based on
+      grid-shaped raster-format units often have inherent limitations, such as sensitivity to pixel size and fixed
+      unit shape with the inability to accurately express objective geographical entities. The VCA model based on
+      cadastral plot data can accurately represent the irregular shape of actual land use, leveraging the high
+      spatial granularity of cadastral-scale land use data.
+    </p>
+    <p>
+      In the research of VCA models, Zhuang et al. accurately mined CA conversion rules based on the random forest
+      algorithm and simulated urban land use changes at the cadastral data level. The HGAT-VCA model proposed by
+      Guan et al. effectively expresses spatial interactions and improves the accuracy of land use simulation by
+      combining VCA with graph convolutional neural networks. However, most of the existing studies focus on how to
+      improve the accuracy of VCA simulation, ignoring that <strong>time is another important dimension</strong> of urban land change.
+    </p>
+
+    <h3>2.2 Time dependence in land use</h3>
+    <p>
+      In the study of time dependence in land use change, some scholars have constructed a series of methodological
+      frameworks on how to organically integrate spatial region division or time series evolution of land cover for
+      traditional raster CA models. Zhou et al. proposed the KCL-CA model, which integrates K-Means, Convolutional
+      Neural Network (CNN), and LSTM to solve the temporal dependence and spatiotemporal heterogeneity in land use
+      change. Li et al. proposed using trend adjusted neighborhood as a weighting factor, integrated this factor
+      into commonly used Logistic CA models to achieve long-term urban expansion modeling with high accuracy.
+    </p>
+    <p>
+      However, the issue of time dependence in VCA still needs to be thoroughly investigated. Regular VCA models
+      lack the ability to exploit long-time series sequence information. Long sequence information can help reveal
+      the VCA simulation of land use change in different periods. Hence, utilizing fully the temporal dependence
+      characteristics of land change can contribute to a more accurate simulation of urban cadastral land use change
+      in VCA models.
+    </p>
+
+    <h3>2.3 Mining land use time series information based on deep learning methods</h3>
+    <p>
+      Deep learning models can learn long-term dependencies in time series, identify the interrelationships between
+      different time points, and thereby enhance the prediction accuracy of land use patterns. <strong>LSTM and GRU</strong>
+      models can effectively capture and learn long-term dependencies in time series data by introducing gating
+      mechanisms. Scholars have demonstrated the advantages of LSTM and GRU models in mining time series
+      information. Thus, deep learning models can extract high-level features and abstract information from data
+      through multi-level nonlinear transformations and can be fully applied in time series prediction tasks.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>3. Study Area and Data</h2>
+    <p>
+      Shenzhen City, China, is taken as the study area. Shenzhen, an emerging and rapidly developing city with an
+      area of 1,997.47 km², governs 9 administrative regions and 1 new district. In the process of urbanization,
+      it emphasizes the efficient and intensive use of land resources. However, due to the rapid urbanization
+      process and economic development needs, there is a phenomenon of excessive development and utilization of
+      land resources in some areas. Research has shown that rapid urbanization in Shenzhen from 1979 to 2017 led to
+      a 3400% hike in land development, catalyzing prominent urban issues encompassing environmental and
+      infrastructural challenges.
+    </p>
+    <p>
+      This paper mainly uses two types of data: land use time series data and spatial auxiliary variables from
+      Shenzhen city. The land use time series data comes from the Shenzhen Planning and Natural Resources Bureau
+      cadastral plot data, including 6 cadastral-scale land use maps ranging from 2009 to 2014. Each year's data
+      is divided into six types: water and roads, unbuilt land, industrial land, public service land, commercial
+      land, and residential land. The study also utilizes Gaode's POI data, OpenStreetMap data, and night light
+      data to construct spatial auxiliary variables.
+    </p>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig1.png" alt="Study area and land use distribution"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 1 — place at static/images/temporal-vca-fig1.png</div>'">
+      <figcaption>Fig. 1. Study area and land use distribution in (A) 2009 and (B) 2014. (C) Ecological conservation zone. (D) Comparison of the number of various land use plots from 2009 to 2014.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig2.png" alt="Spatial driving factors"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 2 — place at static/images/temporal-vca-fig2.png</div>'">
+      <figcaption>Fig. 2. Spatial driving factors calculated for the urban land use change.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>4. Methodology</h2>
+    <p>
+      Fig. 3 illustrates the construction and analysis process of the Temporal-VCA model. This framework consists
+      of three steps: (1) Time series model construction, which uses multiple machine learning models to mine
+      temporal factors and their probabilities in land use change; (2) Model fusion and urban land use simulation,
+      which combines the prediction probability of the time series model with the prediction probability calculated
+      by the VCA model; (3) Urban land use prediction under different scenarios, which designs two future scenarios
+      to simulate long-term land use development.
+    </p>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig3.png" alt="Workflow of the proposed Temporal-VCA framework"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 3 — place at static/images/temporal-vca-fig3.png</div>'">
+      <figcaption>Fig. 3. Workflow of the proposed Temporal-VCA framework.</figcaption>
+    </figure>
+
+    <h3>4.1 Construction of time series model</h3>
+    <p>
+      The proposed time series forecasting model employs conventional machine learning and deep learning models to
+      automatically derive features from time series data. This paper uses land use temporal data from 2009 to 2013
+      as training data and land use data from 2014 as accuracy verification data. The training set has a test set
+      data ratio of 7:3. To avoid imbalanced samples for the multi-class classification, this paper adopts the
+      method of adjusting the training weight parameters.
+    </p>
+    <p>
+      For time series prediction, this paper adopts a <strong>fixed width sliding window technique</strong>, which trains the model
+      with fixed-length historical data at each time step and predicts the last time point within the window.
+    </p>
+
+    <h3>4.1.1 ML-based overall probability calculation</h3>
+    <p>
+      This paper selects four machine learning models: <strong>Decision Tree (DT)</strong>, <strong>Support Vector Machine (SVM)</strong>,
+      <strong>Random Forest (RF)</strong>, and <strong>K-Nearest Neighbor (KNN)</strong>, and two deep learning models, including <strong>LSTM</strong> and
+      <strong>GRU</strong>, to explore the temporal factors and their probabilities in the process of land use transformation.
+    </p>
+
+    <h3>4.1.2 DL-based overall probability calculation</h3>
+    <p>
+      Existing research suggests that GRU and LSTM models can capture long-term temporal dependencies for land use
+      classification and prediction performance, effectively improving classification accuracy and establishing more
+      comprehensive land use conversion rules. LSTM and GRU use the Softmax function to calculate the probability
+      distribution of categories.
+    </p>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig4.png" alt="Flowchart of LSTM and GRU Mining Land Use Conversion Probability"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 4 — place at static/images/temporal-vca-fig4.png</div>'">
+      <figcaption>Fig. 4. Flowchart of LSTM and GRU Mining Land Use Conversion Probability.</figcaption>
+    </figure>
+
+    <h3>4.2 Consolidation of land development probability and simulation of land use</h3>
+    <p>
+      Based on the land use conversion probability calculated by the above model, this study combines the conversion
+      probability of each plot calculated by the time series prediction model and the VCA model and obtains the
+      ultimate development probability of the plot:
+    </p>
+    <p><em>P<sup>k</sup><sub>i</sub> = Pg<sup>k</sup><sub>i</sub> × Ω<sup>k</sup><sub>i</sub> × Pc<sup>k</sup><sub>i</sub> × RA</em></p>
+    <p>
+      Where P<sup>k</sup><sub>i</sub> is the overall development probability of converting the i plot into a Class k plot,
+      Pg<sup>k</sup><sub>i</sub> is the development probability of each plot, Ω<sup>k</sup><sub>i</sub> is the neighborhood effect,
+      Pc<sup>k</sup><sub>i</sub> is the development limiting factor, and RA is a random value. Finally, the roulette wheel
+      algorithm is used to determine the final category of land use change.
+    </p>
+
+    <h3>4.3 Prediction of urban land use in different scenarios</h3>
+    <p>
+      To compare the land use patterns and trends under different development paths, this study designed two
+      development scenarios:
+    </p>
+    <ol>
+      <li><strong>Scenario O1 (Disordered development):</strong> Following historical development trends, allowing for the
+      mutual transformation of various types of land.</li>
+      <li><strong>Scenario O2 (Ecological protection):</strong> Prohibits all plots within the ecological conservation zone
+      from being developed into four types of urban land.</li>
+    </ol>
+
+    <h3>4.4 Model evaluation</h3>
+    <p>
+      To comprehensively evaluate the simulation performance of the proposed model, this paper applied several
+      evaluation indicators: <strong>Figure of Merit (FoM)</strong>, Kappa coefficient, and Overall Accuracy (OA). If FoM is
+      more significant than 0.2, the land use simulation model has excellent simulation ability.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>5. Results</h2>
+
+    <h3>5.1 Analysis of simulation results of land use change</h3>
+    <p>
+      Based on machine learning models, Temporal-VCA simulated the urban land use in Shenzhen in 2014. The
+      Temporal-VCA model improves the overall simulation accuracy by <strong>19.027% to 22.124%</strong> compared to the discrete
+      data model PLUS. Among them, the overall simulation accuracy FoM of Shenzhen based on the KNN-VCA model
+      reached <strong>0.276</strong>, and even the FoM simulation accuracy of Luohu District, Futian District, and Bao'an District
+      was above 0.290.
+    </p>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig5.png" alt="Simulation result of the land-use dynamic"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 5 — place at static/images/temporal-vca-fig5.png</div>'">
+      <figcaption>Fig. 5. Simulation result of the land-use dynamic. (A) Ground truth data in 2014. (B) The optimal simulation results of land use change in 2014 (KNN-VCA). (C) The correctly simulated and incorrectly simulated land parcels.</figcaption>
+    </figure>
+
+    <table>
+      <caption>Table 1. The simulation accuracy (FoM) of different models based on Temporal-VCA.</caption>
+      <thead>
+        <tr>
+          <th>District</th><th>DT</th><th>RF</th><th>KNN</th><th>SVM</th><th>LSTM</th><th>GRU</th><th>PLUS*</th><th>RF-VCA*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Futian</td><td>0.298</td><td>0.297</td><td>0.310↑</td><td>0.307</td><td>0.294</td><td>0.305</td><td>0.133</td><td>0.241</td></tr>
+        <tr><td>Luohu</td><td>0.302↑</td><td>0.306↑</td><td>0.309</td><td>0.309↑</td><td>0.309↑</td><td>0.306↑</td><td>0.252</td><td>0.261</td></tr>
+        <tr><td>Yantian</td><td>0.242</td><td>0.242</td><td>0.274</td><td>0.258</td><td>0.249</td><td>0.251</td><td>0.115</td><td>0.252</td></tr>
+        <tr><td>Nanshan</td><td>0.259</td><td>0.261</td><td>0.262</td><td>0.261</td><td>0.257</td><td>0.267</td><td>0.178</td><td>0.200</td></tr>
+        <tr><td>Baoan</td><td>0.295</td><td>0.294</td><td>0.298</td><td>0.298</td><td>0.298</td><td>0.293</td><td>0.258</td><td>0.215</td></tr>
+        <tr><td>Longgang</td><td>0.251</td><td>0.254</td><td>0.261</td><td>0.259</td><td>0.253</td><td>0.255</td><td>0.187</td><td>0.263</td></tr>
+        <tr><td>Longhua</td><td>0.268</td><td>0.272</td><td>0.280</td><td>0.278</td><td>0.273</td><td>0.277</td><td>0.328</td><td>0.263</td></tr>
+        <tr><td>Pingshan</td><td>0.238</td><td>0.238</td><td>0.241</td><td>0.242</td><td>0.242</td><td>0.243</td><td>0.269</td><td>0.246</td></tr>
+        <tr><td>Guangming</td><td>0.270</td><td>0.267</td><td>0.273</td><td>0.276</td><td>0.267</td><td>0.265</td><td>0.225</td><td>0.285</td></tr>
+        <tr><td>Dapeng</td><td>0.237↓</td><td>0.231↓</td><td>0.227↓</td><td>0.229↓</td><td>0.222↓</td><td>0.237↓</td><td>0.118</td><td>0.293</td></tr>
+      </tbody>
+    </table>
+
+    <table>
+      <caption>Table 2. Evaluation of simulation results indicators for each model.</caption>
+      <thead>
+        <tr><th>Model</th><th>FoM</th><th>Kappa</th><th>OA</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>DT</td><td>0.269↓</td><td>0.979↓</td><td>0.984↓</td></tr>
+        <tr><td>RF</td><td>0.270</td><td>0.981</td><td>0.985</td></tr>
+        <tr><td>KNN</td><td>0.276↑</td><td>0.981</td><td>0.985</td></tr>
+        <tr><td>SVM</td><td>0.275</td><td>0.981</td><td>0.985</td></tr>
+        <tr><td>LSTM</td><td>0.271</td><td>0.982↑</td><td>0.986↑</td></tr>
+        <tr><td>GRU</td><td>0.273</td><td>0.980</td><td>0.985</td></tr>
+        <tr><td>PLUS*</td><td>0.226</td><td>0.783</td><td>0.863</td></tr>
+        <tr><td>RF-VCA*</td><td>0.250</td><td>0.809</td><td>0.899</td></tr>
+      </tbody>
+    </table>
+
+    <h3>5.2 Prediction results in different scenarios</h3>
+    <p>
+      Based on Temporal-VCA and different future development scenarios, this paper conducted a long-term prediction
+      of land use change in Shenzhen in 2030 and quantitatively studied the temporal characteristics of land use.
+      The results suggest that the effective execution of ecological protection and sustainable development
+      strategies has successfully safeguarded urban green spaces. Nonetheless, these strategies pose significant
+      challenges, as projections indicate a 6% decrease in public management service land by 2030.
+    </p>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig6.png" alt="Spatial distribution in 2030 based on Temporal-VCA"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 6 — place at static/images/temporal-vca-fig6.png</div>'">
+      <figcaption>Fig. 6. Spatial distribution in 2030 based on Temporal-VCA: (A) O1 Scenario; (B) O2 Scenario; (C1)–(C2), (D1)–(D2), (E1)–(E2) Comparison of details of O1 and O2 in different regions.</figcaption>
+    </figure>
+
+    <table>
+      <caption>Table 3. The total area of each urban land use in 2030 under different scenarios (unit: m²).</caption>
+      <thead>
+        <tr><th>Year</th><th>Scenarios</th><th>Unbuilt land</th><th>Industrial land</th><th>Public service land</th><th>Commercial land</th><th>Residential land</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2014</td><td>—</td><td>959,506,757</td><td>299,375,767</td><td>147,705,670</td><td>55,746,817</td><td>212,069,779</td></tr>
+        <tr><td>2030</td><td>O1</td><td>965,279,518</td><td>299,182,851</td><td>144,991,972</td><td>52,525,940</td><td>215,403,356</td></tr>
+        <tr><td>2030</td><td>O2</td><td>983,063,589</td><td>289,597,683</td><td>138,847,167</td><td>52,205,962</td><td>211,214,471</td></tr>
+      </tbody>
+    </table>
+
+    <p>
+      Ecological strategies can reduce ecological damage by <strong>71.9%</strong> by 2030. Regional policies in the Pingshan and
+      Nanshan regions prioritize converting ecological land into construction land. In contrast, the ecological
+      conservation zone in the Guangming and Longhua regions have a relatively low proportion, but the reduction in
+      construction land is relatively high.
+    </p>
+
+    <figure>
+      <img src="../static/images/temporal-vca-fig7.png" alt="Simulated changes in land use in various administrative regions"
+           onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Fig. 7 — place at static/images/temporal-vca-fig7.png</div>'">
+      <figcaption>Fig. 7. Simulated changes in land use in various administrative regions compared to the uncontrolled sprawl scenario in 2030 under ecological protection scenarios (unit: %).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>6. Discussion</h2>
+    <p>
+      This paper proposes a Temporal-VCA model for simulating and predicting urban land use change, which couples
+      temporal data with vector cellular automata. It effectively improves the accuracy of urban land use change
+      simulation, reveals the dynamic characteristics of land use change, and clarifies the time-dependent mechanism
+      of urban land use development.
+    </p>
+    <p>
+      The simulation results show that compared to the discrete data model, Temporal-VCA can improve the simulation
+      accuracy by <strong>19.03% to 22.12%</strong>, with KNN-VCA having the highest simulation accuracy (FoM = 0.2762). Compared
+      to the current advanced PLUS model and RF-VCA model, the simulation accuracy has been improved by
+      <strong>22.12%</strong> and <strong>10.48%</strong>, respectively. It is worth noting that the simulation accuracy of Luohu District,
+      Futian District, and Bao'an District is all above 0.29, while the FoM accuracy of Dapeng New Area and
+      Pingshan District is around 0.24.
+    </p>
+    <p>
+      Diverse machine learning and deep learning models have been integrated with the VCA framework to analyze land
+      use change extensively. This study found that using multiple traditional machine learning models and deep
+      learning models performed similarly on FoM metrics, and even <strong>KNN and SVM</strong> machine learning models performed
+      better than LSTM and GRU deep learning models. Due to the time-dependent nature of land use change and the
+      fact that both KNN and SVM are nonparametric models when dealing with nonlinear problems, they can capture
+      nonlinear features between land use through instance-based learning methods and kernel techniques, adapting to
+      complex decision boundaries.
+    </p>
+    <p>
+      The scenario simulation results show that ecological strategies can reduce ecological damage by <strong>71.9%</strong> by
+      2030. This indicates that the Temporal-VCA model can not only simulate historical land use changes but also
+      provide decision support for future urban planning and ecological protection.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>7. Conclusion</h2>
+    <p>
+      This paper proposes the <strong>Temporal-VCA</strong> framework, which couples temporal data with vector cellular automata for
+      simulating urban land use change. The main contributions are:
+    </p>
+    <ol>
+      <li>A Temporal-VCA framework is proposed that fully utilizes fine spatial and temporal granularity information
+      of cadastral plot temporal data to enhance the accuracy of VCA. The framework couples multiple machine
+      learning and deep learning models with VCA to mine temporal factors and their probabilities in land use
+      change.</li>
+      <li>Temporal-VCA notably improves precision by up to <strong>22.12%</strong>, outperforming the regular VCA models and
+      traditional raster CA models. KNN-VCA achieves the highest FoM of 0.276, and even outperforms deep
+      learning-based LSTM-VCA and GRU-VCA models.</li>
+      <li>Designed simulations for 2030, including scenarios of disordered development and ecological protection,
+      highlight the benefits of fully leveraging fine temporal granularity information into urban planning,
+      potentially <strong>reducing ecological damage by 70%</strong>.</li>
+      <li>The findings reveal the complex nonlinear temporal patterns within cadastral-scale urban development
+      processes, offering a novel methodology for urban land use simulation with significant implications for
+      urban planning and the advancement of sustainable cities.</li>
+    </ol>
   </div>
 </section>
 
 <section class="bibtex">
   <div class="container">
     <h2>BibTeX</h2>
-    <pre>@article{yao2024temporal,
-  title={Temporal-VCA: Simulating urban land use change using
-         coupled temporal data and vector cellular automata},
-  author={Yao, Yao and Zhou, Kun and Liu, Chenxi and
-          Sun, Zhenhui and Chen, Dongsheng and Li, Linlong and
-          Cheng, Tao and Guan, Qingfeng},
-  journal={Cities},
-  year={2024},
-  doi={10.1016/j.cities.2024.104975}
+    <pre>@article{YAO2024104975,
+  author = {Yao Yao and Kun Zhou and Chenxi Liu and Zhenhui Sun and Dongsheng Chen and Linlong Li and Tao Cheng and Qingfeng Guan},
+  title = {Temporal-VCA: Simulating urban land use change using coupled temporal data and vector cellular automata},
+  journal = {Cities},
+  volume = {149},
+  pages = {104975},
+  year = {2024},
+  issn = {0264-2751},
+  doi = {10.1016/j.cities.2024.104975},
+  publisher = {Elsevier}
 }</pre>
   </div>
 </section>
 
 <footer class="footer">
-  <div class="container">&copy; 2025 Zhenhui Sun</div>
+  <div class="container">
+    &copy; 2025 Zhenhui Sun. All rights reserved.
+  </div>
 </footer>
 
 </body>
