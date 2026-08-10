@@ -276,6 +276,25 @@ body {
   border-top: 1px solid #e8eaed;
 }
 
+/* ===== Figure ===== */
+figure {
+  margin: 20px 0;
+  text-align: center;
+}
+figure img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border-radius: 6px;
+}
+figcaption {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #57606a;
+  line-height: 1.5;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
   .hero h1 {
