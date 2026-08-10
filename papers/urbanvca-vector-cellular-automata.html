@@ -20,13 +20,12 @@
     <span class="venue-tag">arXiv · 2021</span>
     <h1>UrbanVCA: a vector-based cellular automata framework to simulate the urban land-use change at the land-parcel level</h1>
     <p class="authors">
-      Yao Yao, Chenxi Liu, <strong>Zhenhui Sun</strong>, Kun Zhou, Dongsheng Chen, Linlong Li, Qingfeng Guan
+      Yao Yao, Linlong Li, Zhaotang Liang, Tao Cheng, <strong>Zhenhui Sun</strong>, Peng Luo, Qingfeng Guan, Yaqian Zhai, Shihao Kou, Yuyang Cai, Lefei Li, Xinyue Ye
     </p>
-    <p class="venue">arXiv preprint · 2021</p>
-    <p class="meta">arXiv: <a href="https://arxiv.org/abs/2103.12444" target="_blank">2103.12444</a></p>
+    <p class="venue">arXiv · 2021</p>
+    <p class="meta">arXiv: <a href="https://arxiv.org/abs/2103.08538" target="_blank">2103.08538</a></p>
     <div class="links">
-      <a href="https://arxiv.org/abs/2103.12444" target="_blank">Paper</a>
-      <a href="#" class="disabled">DOI</a>
+      <a href="https://arxiv.org/abs/2103.08538" target="_blank">Paper</a>
       <a href="#" class="disabled">Code</a>
     </div>
   </div>
@@ -42,22 +41,187 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>UrbanVCA introduces a vector-based cellular automata framework designed to simulate urban land-use change at the land-parcel level, providing a more realistic and fine-grained alternative to traditional raster-based CA models.</p>
+    <p>
+      Vector-based cellular automata (CA) based on real land-parcel has become an important trend in current
+      urban development simulation studies. Compared with raster-based and parcel-based CA models, vector CA
+      models are difficult to be widely used because of their complex data structures and technical difficulties.
+      The <strong>UrbanVCA</strong>, a brand-new vector CA-based urban development simulation framework was proposed
+      in this study, which supports multiple machine-learning models. To measure the simulation accuracy better,
+      this study also first proposes a <strong>vector-based landscape index (VecLI)</strong> model based on the real
+      land-parcels. Using Shunde, Guangdong as the study area, the UrbanVCA simulates multiple types of urban
+      land-use changes at the land-parcel level have achieved a high accuracy (<strong>FoM=0.243</strong>) and the
+      landscape index similarity reaches <strong>87.3%</strong>. The simulation results in 2030 show that the
+      eco-protection scenario can promote urban agglomeration and reduce ecological aggression and loss of
+      arable land by at least <strong>60%</strong>. Besides, we have developed and released UrbanVCA software for
+      urban planners and researchers.
+    </p>
+    <div class="keywords">
+      <span>Keywords: </span>
+      <span class="tag">UrbanVCA</span>
+      <span class="tag">Cellular automata</span>
+      <span class="tag">Land-use change</span>
+      <span class="tag">Urban plan</span>
+      <span class="tag">Vector-based landscape index</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>
+      China has experienced rapid urbanization in the past several decades. Cellular automata (CA) models have
+      been widely used in simulating urban expansion and land-use change. Traditional raster-based CA models
+      divide the study area into regular grids, which cannot reflect the real boundaries of land parcels and
+      often result in mixed pixels and boundary inaccuracies.
+    </p>
+    <p>
+      Vector-based CA models use real land parcels as basic cell units, providing a more realistic representation
+      of urban land-use patterns. However, due to their complex data structures and technical difficulties,
+      vector CA models are difficult to be widely used. The UrbanVCA framework addresses these challenges by
+      providing a comprehensive vector CA-based simulation framework that supports multiple machine-learning
+      models and incorporates a vector-based landscape index for accuracy assessment.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>2. Study Area and Data</h2>
+    <p>
+      The study area is <strong>Shunde District, Foshan, Guangdong Province, China</strong>. Shunde has experienced
+      rapid urbanization and is representative of the urban development in the Pearl River Delta region. The
+      land-use data in 2012 and 2018 were used for model calibration and validation.
+    </p>
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>3. Methodology</h2>
+    <p>
+      The proposed model consists of UrbanVCA and VecLI. The construction of UrbanVCA contains four main parts:
+      (1) a subdivision method for obtaining the minimum vector land-parcel as basic cell unit; (2) a CA model
+      for mining the overall development probability and simulating land-use change of vector-based cells;
+      (3) a set of assessment methods for assessing the performance of UrbanVCA, including the proposed VecLI
+      and conventional FoM metric; (4) an application for future land-use pattern prediction under multi-scenarios.
+    </p>
+
+    <figure>
+      <img src="../static/images/urbanvca-fig3.png" alt="Workflow of UrbanVCA and VecLI">
+      <figcaption>Fig. 3. The workflow of the proposed UrbanVCA and VecLI in this study.</figcaption>
+    </figure>
+
+    <h3>3.1 Deriving the minimum land-parcel</h3>
+    <p>
+      To enable a vector cell lattice, the iterative dichotomy strategy was used to split the plots. The
+      iteration and splitting process continues until the area of each plot is less than the initial state's
+      average area of input plots, thereby obtaining the basic cell unit.
+    </p>
+
+    <h3>3.2 Urban land-use change simulation</h3>
+    <p>
+      Three machine learning algorithms are provided to calculate the overall development probability for each
+      minimum land-parcel: <strong>Logistic Regression (LR)</strong>, <strong>Neural Network (NN)</strong>, and
+      <strong>Random Forest (RF)</strong>. The neighborhood effect is determined using a centroid-intercepted
+      buffer approach, and the optimal radius value is determined by the best simulation result according to
+      the FoM metric.
+    </p>
+
+    <h3>3.3 VecLI: Vector-based landscape index</h3>
+    <p>
+      To better measure the simulation accuracy at the landscape pattern level, this study first proposes a
+      vector-based landscape index (VecLI) model based on real land-parcels. VecLI computes landscape indices
+      directly from vector data, avoiding the accuracy loss from rasterization.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>4. Results</h2>
+
+    <h3>4.1 Simulation accuracy</h3>
+    <p>
+      The UrbanVCA achieves a high simulation accuracy with <strong>FoM=0.243</strong> and the landscape index
+      similarity reaches <strong>87.3%</strong>. The Random Forest model outperforms Logistic Regression and
+      Neural Network in terms of simulation accuracy.
+    </p>
+
+    <figure>
+      <img src="../static/images/urbanvca-fig4.png" alt="Spatial distribution of simulation errors">
+      <figcaption>Fig. 4. The spatial distribution of simulation errors for each town/subdistrict in the study area.</figcaption>
+    </figure>
+
+    <h3>4.2 Correlation analysis</h3>
+    <p>
+      The correlation between FoM and GDP growth rates, as well as other socio-economic factors, was analyzed
+      to understand the driving forces behind urban land-use change.
+    </p>
+
+    <figure>
+      <img src="../static/images/urbanvca-fig5.png" alt="Correlation between FoM and GDP growth rates">
+      <figcaption>Fig. 5. The correlation between FoM and GDP growth rates.</figcaption>
+    </figure>
+
+    <h3>4.3 Neighborhood effect analysis</h3>
+    <p>
+      The relationship between the neighborhood buffer distance and simulation accuracy was examined to
+      determine the optimal neighborhood radius for the CA model.
+    </p>
+
+    <figure>
+      <img src="../static/images/urbanvca-fig6.png" alt="Neighborhood buffer distance and simulation accuracy">
+      <figcaption>Fig. 6. The relationship between the neighborhood buffer distance and simulation accuracy.</figcaption>
+    </figure>
+
+    <h3>4.4 Scenario simulation for 2030</h3>
+    <p>
+      The simulation results in 2030 show that the <strong>eco-protection scenario</strong> can promote urban
+      agglomeration and reduce ecological aggression and loss of arable land by at least <strong>60%</strong>
+      compared with the disordered development mode.
+    </p>
+
+    <figure>
+      <img src="../static/images/urbanvca-fig7.png" alt="Scenario simulation results for 2030">
+      <figcaption>Fig. 7. Scenario simulation results for 2030 under different development modes.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>5. Conclusion</h2>
+    <p>
+      This paper proposes the UrbanVCA framework for simulating urban land-use change at the land-parcel level.
+      The main contributions are:
+    </p>
+    <ol>
+      <li>An <strong>UrbanVCA software</strong> supporting land-use change simulation at land-parcel level is designed
+      and released for urban planners and researchers.</li>
+      <li>This study firstly proposed and implemented a <strong>vector-based landscape index (VecLI)</strong> for
+      accuracy assessment at the landscape pattern level.</li>
+      <li>UrbanVCA can effectively simulate <strong>urban expansion and internal land-use changes</strong> with high
+      accuracy (FoM=0.243, landscape index similarity=87.3%).</li>
+      <li>The <strong>eco-protection scenario</strong> can reduce ecological aggression and loss of arable land by at
+      least 60% in 2030 compared with the disordered development mode.</li>
+    </ol>
   </div>
 </section>
 
 <section class="bibtex">
   <div class="container">
     <h2>BibTeX</h2>
-    <pre>@article{yao2021urbanvca,
-  title={UrbanVCA: a vector-based cellular automata framework
-         to simulate the urban land-use change at the
-         land-parcel level},
-  author={Yao, Yao and Liu, Chenxi and Sun, Zhenhui and
-          Zhou, Kun and Chen, Dongsheng and Li, Linlong and
-          Guan, Qingfeng},
-  journal={arXiv preprint arXiv:2103.12444},
-  year={2021}
+    <pre>@misc{yao2021urbanvcavectorbasedcellularautomata,
+  title={UrbanVCA: a vector-based cellular automata framework to simulate the urban land-use change at the land-parcel level}, 
+  author={Yao Yao and Linlong Li and Zhaotang Liang and Tao Cheng and Zhenhui Sun and Peng Luo and Qingfeng Guan and Yaqian Zhai and Shihao Kou and Yuyang Cai and Lefei Li and Xinyue Ye},
+  year={2021},
+  eprint={2103.08538},
+  archivePrefix={arXiv},
+  primaryClass={cs.CY},
+  url={https://arxiv.org/abs/2103.08538}, 
 }</pre>
   </div>
 </section>
