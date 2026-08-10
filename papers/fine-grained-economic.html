@@ -11,7 +11,7 @@
 
 <nav class="back-nav">
   <div class="container">
-    <a href="../">← Zhenhui Sun</a>
+    <a href="../">Zhenhui Sun</a>
   </div>
 </nav>
 
@@ -22,7 +22,7 @@
     <p class="authors">
       Yao Yao, Haoyan Zhang, <strong>Zhenhui Sun</strong>, Linlong Li, Tao Cheng, Ying Jiang, Qingfeng Guan, Dongsheng Chen
     </p>
-    <p class="venue">International Journal of Applied Earth Observation and Geoinformation · December 2023</p>
+    <p class="venue">International Journal of Applied Earth Observation and Geoinformation · 2023</p>
     <p class="meta">DOI: <a href="https://doi.org/10.1016/j.jag.2023.103602" target="_blank">10.1016/j.jag.2023.103602</a></p>
     <div class="links">
       <a href="https://doi.org/10.1016/j.jag.2023.103602" target="_blank">Paper</a>
@@ -34,7 +34,7 @@
 
 <section class="teaser">
   <div class="container">
-    <img src="../static/images/fine-grained-economic-teaser.png" alt="Economic Forecasting Teaser"
+    <img src="../static/images/fine-grained-economic-teaser.png" alt="Fine-grained Economic Forecasting Teaser"
          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Teaser image — place at static/images/fine-grained-economic-teaser.png</div>'">
   </div>
 </section>
@@ -42,29 +42,244 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>This study proposes a vector-based cellular automata approach for fine-grained regional economic forecasting in megacities, integrating spatial heterogeneity and land parcel-level dynamics for improved prediction accuracy.</p>
+    <p>
+      It is important to measure uncoordinated regional urban economic development to help guide government policy.
+      However, previous models have often struggled to capture the fine-grained spatiotemporal characteristics of
+      economic development, thereby failing to provide insight into the fine-scale patterns. Sectoral structure and its
+      evolution are strongly related to economic development and provide finer spatial information. Therefore, this
+      paper proposes a framework for forecasting the spatiotemporal evolution of urban economic development at the
+      cadastral parcel scale based on <strong>sectoral land use dynamics modeling</strong> and the <strong>S-curve economic model</strong>.
+      The results of the case study conducted in Shenzhen, China, show good performance
+      (FoM = <strong>0.182</strong>, average R² = <strong>0.748</strong>, median R² = <strong>0.877</strong>).
+      The sectoral structure in high-economic-level areas was found to be more balanced, and the economic volume
+      tended to increase more. In contrast, sectoral land use types change more frequently in low-economic-level
+      areas, and the economic growth rates are generally higher due to their lower economic base. Without government
+      intervention, disparities in simulated economic volumes between regions will continue to widen in the short
+      term. Hence, the government is encouraged to consider optimizing the sectoral structure in low-economic-level
+      areas to promote coordinated regional economic development.
+    </p>
+    <div class="keywords">
+      <span>Keywords: </span>
+      <span class="tag">Economic forecasting</span>
+      <span class="tag">Cellular automata</span>
+      <span class="tag">Land use</span>
+      <span class="tag">S-curve of economic development</span>
+      <span class="tag">Sectoral structure</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>
+      Regional economic development is a key issue in urban studies and urban planning. Measuring uncoordinated
+      regional economic development is important for guiding government policy. However, previous models have often
+      struggled to capture the fine-grained spatiotemporal characteristics of economic development, thereby failing
+      to provide insight into the fine-scale patterns.
+    </p>
+    <p>
+      Sectoral structure and its evolution are strongly related to economic development and provide finer spatial
+      information. The <strong>vector cellular automata (VCA)</strong> model, based on cadastral parcel data, can accurately
+      represent the irregular shape of actual land use, leveraging the high spatial granularity of cadastral-scale
+      land use data. This provides an opportunity to model economic development at a fine-grained scale.
+    </p>
+    <p>
+      This paper proposes a framework for forecasting the spatiotemporal evolution of urban economic development at
+      the cadastral parcel scale based on sectoral land use dynamics modeling and the S-curve economic model. The
+      framework couples land use dynamics simulation with economic development forecasting, addressing the problem
+      of the coarse-scale spatial distribution of economic forecasting portrayed in the past.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>2. Study Area and Data</h2>
+    <p>
+      Shenzhen City, China, is taken as the study area. Shenzhen is a special economic zone located in Guangdong
+      Province, China. It is an emerging and rapidly developing city that governs 9 administrative regions and 1
+      new district. In the process of urbanization, it emphasizes the efficient and intensive use of land resources.
+    </p>
+    <p>
+      This paper uses sectoral land use data from 2011 and 2014, including primary, secondary, and tertiary sector
+      land use types. The data comes from the Shenzhen Planning and Natural Resources Bureau cadastral plot data.
+      Spatial auxiliary variables are also used for urban land use dynamic modelling.
+    </p>
+
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>3. Methodology</h2>
+    <p>
+      Fig. 3 illustrates the workflow of the proposed framework. The framework consists of two main components:
+      (1) Sectoral land use dynamics simulation based on VCA, which models the spatiotemporal evolution of sectoral
+      land use at the cadastral parcel scale; (2) Economic development forecasting based on the S-curve model, which
+      predicts the economic level of each parcel according to its sectoral land use type, area, and administrative
+      district.
+    </p>
+
+    <figure>
+      <img src="../static/images/fine-grained-economic-fig3.jpg" alt="Workflow of the proposed framework">
+      <figcaption>Fig. 3. Workflow of the proposed framework.</figcaption>
+    </figure>
+
+    <h3>3.1 Sectoral land use dynamics simulation</h3>
+    <p>
+      The VCA model is used to simulate sectoral land use dynamics. The model calculates the development probability
+      of each parcel based on spatial auxiliary variables and neighborhood effects. The sectoral land use types
+      include primary sector (agriculture, forestry, etc.), secondary sector (industrial, construction), and
+      tertiary sector (commercial, financial services, public services, residential).
+    </p>
+
+    <h3>3.2 S-curve economic model</h3>
+    <p>
+      The <strong>S-curve</strong> (logistic curve) is used to model the relationship between economic development level and
+      sectoral structure. The economic level of each parcel is forecasted according to three attributes: sectoral
+      land use type, area, and the administrative district to which it belongs. The S-curve model captures the
+      nonlinear relationship between economic growth and sectoral structure evolution.
+    </p>
+
+    <figure>
+      <img src="../static/images/fine-grained-economic-fig4.jpg" alt="Results of sectoral land evolution simulation">
+      <figcaption>Fig. 4. Results of sectoral land evolution simulation in Shenzhen in 2014, 2017, and 2035.</figcaption>
+    </figure>
+
+    <h3>3.3 Model evaluation</h3>
+    <p>
+      To evaluate the simulation performance, this paper applied <strong>Figure of Merit (FoM)</strong> for land use simulation
+      accuracy and <strong>R²</strong> for economic forecasting accuracy. The case study in Shenzhen shows good performance
+      (FoM = 0.182, average R² = 0.748, median R² = 0.877).
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>4. Results</h2>
+
+    <h3>4.1 Sectoral land use simulation results</h3>
+    <p>
+      The simulated results of the sectoral land use dynamics indicated a good performance (FoM = <strong>0.182</strong>), which
+      shows that the results can be used to analyze the spatial distribution and temporal change characteristics of
+      the sectoral structure of urban land at a fine scale.
+    </p>
+
+    <h3>4.2 Economic forecasting results</h3>
+    <p>
+      The economic forecasting model shows good performance with average R² = <strong>0.748</strong> and median R² = <strong>0.877</strong>.
+      The forecasted economic growth for each sector in each region reveals that the sectoral structure in
+      high-economic-level areas is more balanced, and the economic volume tended to increase more.
+    </p>
+
+    <figure>
+      <img src="../static/images/fine-grained-economic-fig5.jpg" alt="Forecasted economic growth for each sector">
+      <figcaption>Fig. 5. Forecasted economic growth for each sector (A) in each region (B).</figcaption>
+    </figure>
+
+    <h3>4.3 Fine-grained spatial distribution of economic levels</h3>
+    <p>
+      According to the analysis, the sectoral structure in higher-economic-level areas, such as Futian District,
+      Luohu District, and Nanshan District, is more balanced and corresponds to a higher economic level than other
+      districts. The lands in the low-economic-level areas, such as Pingshan District and Dapeng Peninsula, are
+      dominated by the primary sector with a lower economic level.
+    </p>
+
+    <figure>
+      <img src="../static/images/fine-grained-economic-fig6.jpg" alt="Fine-grained spatial distribution of economic levels">
+      <figcaption>Fig. 6. The fine-grained spatial distribution of economic levels in Shenzhen. (A) Example in Futian District. (B) Example in Guangming District. (C) Example in Longgang District. (D) Example in Dapeng Peninsula.</figcaption>
+    </figure>
+
+    <h3>4.4 Temporal changes in economic level</h3>
+    <p>
+      From the temporal perspective, the overall economic level of Shenzhen has been increasing year by year on the
+      macro scale. However, at the micro scale, the economic level of the low-economic-level regions has been
+      increasing more significantly than that of the high-economic-level regions. The largest GDP increase is found
+      in some strong economic areas (i.e., Nanshan District and parts of Yantian District). Without government
+      intervention, disparities in economic volumes between regions will continue to widen in the short term.
+    </p>
+
+    <figure>
+      <img src="../static/images/fine-grained-economic-fig7.jpg" alt="Temporal changes in economic level and growth rate">
+      <figcaption>Fig. 7. Temporal changes in economic level and growth rate and their spatial distributions. The change in economic level from 2017 to 2026 (A) and from 2026 to 2035 (B). The economic growth rate from 2017 to 2026 (C) and from 2026 to 2035 (D).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>5. Discussion</h2>
+    <p>
+      This paper proposes a framework for predicting the spatiotemporal evolution of urban economic development at
+      the fine-grained cadastral parcel scale, considering sectoral and locational factors, to portray fine-scale
+      economic development. The framework makes the following two contributions: 1) The framework introduces the
+      land use dynamics simulation model for economic forecasting. 2) It can generate an accurate fine-scale spatial
+      distribution of economic development.
+    </p>
+    <p>
+      This study couples land use dynamics simulation and sectoral structure economy, addressing the problem of the
+      coarse-scale spatial distribution of economic forecasting portrayed in the past. The simulated results of the
+      sectoral land use dynamics indicated a good performance (FoM = 0.182), which shows that the results can be
+      used to analyze the spatial distribution and temporal change characteristics of the sectoral structure of
+      urban land at a fine scale.
+    </p>
+    <p>
+      However, the study needs to be further improved. First, in the process of modeling urban land dynamics,
+      built-up factors such as commercial facilities and transportation facilities are seen as the main contributors,
+      but the influence of some natural factors on changes in sectoral land use types is not considered. Second, the
+      spatial neighborhood effect may exist between the economic growth of a parcel and its neighborhood, which is
+      not currently modeled. In the future, the proposed framework will be improved by introducing multisource
+      spatial data to determine the spatial neighborhood effect of economic growth.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>6. Conclusion</h2>
+    <p>
+      This paper proposes a framework for calculating and forecasting the spatiotemporal economic levels in
+      megacities at the fine-grained cadastral parcel scale. The main contributions are:
+    </p>
+    <ol>
+      <li>The framework introduces the <strong>land use dynamics simulation model</strong> for economic forecasting, coupling
+      sectoral land use dynamics with the S-curve economic model.</li>
+      <li>It can generate an accurate fine-scale spatial distribution of economic development, with good performance
+      (FoM = <strong>0.182</strong>, average R² = <strong>0.748</strong>, median R² = <strong>0.877</strong>).</li>
+      <li>The sectoral structure in high-economic-level areas was found to be more balanced, and the economic volume
+      tended to increase more. In contrast, sectoral land use types change more frequently in low-economic-level
+      areas, and the economic growth rates are generally higher due to their lower economic base.</li>
+      <li>Without government intervention, disparities in simulated economic volumes between regions will continue to
+      widen in the short term. The government is encouraged to consider <strong>optimizing the sectoral structure</strong> in
+      low-economic-level areas to promote coordinated regional economic development.</li>
+    </ol>
   </div>
 </section>
 
 <section class="bibtex">
   <div class="container">
     <h2>BibTeX</h2>
-    <pre>@article{yao2023fine,
-  title={Fine-grained regional economic forecasting for a megacity
-         using vector-based cellular automata},
-  author={Yao, Yao and Zhang, Haoyan and Sun, Zhenhui and
-          Li, Linlong and Cheng, Tao and Jiang, Ying and
-          Guan, Qingfeng and Chen, Dongsheng},
-  journal={International Journal of Applied Earth Observation
-           and Geoinformation},
-  year={2023},
-  doi={10.1016/j.jag.2023.103602}
+    <pre>@article{YAO2023103602,
+  author = {Yao Yao and Haoyan Zhang and Zhenhui Sun and Linlong Li and Tao Cheng and Ying Jiang and Qingfeng Guan and Dongsheng Chen},
+  title = {Fine-grained regional economic forecasting for a megacity using vector-based cellular automata},
+  journal = {International Journal of Applied Earth Observation and Geoinformation},
+  volume = {125},
+  pages = {103602},
+  year = {2023},
+  issn = {0303-2434},
+  doi = {10.1016/j.jag.2023.103602},
+  publisher = {Elsevier}
 }</pre>
   </div>
 </section>
 
 <footer class="footer">
-  <div class="container">&copy; 2025 Zhenhui Sun</div>
+  <div class="container">
+    &copy; 2025 Zhenhui Sun. All rights reserved.
+  </div>
 </footer>
 
 </body>
