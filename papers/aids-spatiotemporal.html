@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Uncovering spatiotemporal development patterns of AIDS in China using Joinpoint Regression and Spatial Clustering">
-  <title>AIDS Spatiotemporal | Zhenhui Sun</title>
+  <meta name="description" content="Uncovering spatiotemporal development patterns of AIDS in China: A study using panel data with Joinpoint Regression analysis and Spatial Clustering (2004–2018)">
+  <title>AIDS Spatiotemporal Analysis | Zhenhui Sun</title>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/papers.css">
 </head>
@@ -12,14 +12,15 @@
 
 <nav class="back-nav">
   <div class="container">
-    <a href="../">← Zhenhui Sun</a>
+    <a href="../"> Zhenhui Sun</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="container">
-    <span class="venue-tag">Health &amp; Place · 2024</span>
-    <h1>Uncovering spatiotemporal development patterns of AIDS in China: A study using panel data with Joinpoint Regression analysis and Spatial Clustering</h1>
+    <span class="venue-tag">Public Health · Epidemiology · Spatiotemporal Modeling</span>
+    <h1>Uncovering Spatiotemporal Development Patterns of AIDS in China</h1>
+    <p class="subtitle">A study using panel data with Joinpoint Regression, K-Means Clustering, and Getis-Ord Gi* Hotspot Analysis on incidence, mortality, and prevalence (2004–2018)</p>
     <p class="authors">
       Shu-nan Gui, Xiang Zhang, <strong>Zhenhui Sun</strong>, Yao Yao
     </p>
@@ -35,7 +36,7 @@
 
 <section class="teaser">
   <div class="container">
-    <img src="../static/images/aids-spatiotemporal-teaser.png" alt="AIDS Teaser"
+    <img src="../static/images/aids-spatiotemporal-teaser.png" alt="AIDS Spatiotemporal Teaser"
          onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Teaser image — place at static/images/aids-spatiotemporal-teaser.png</div>'">
   </div>
 </section>
@@ -43,7 +44,83 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>The HIV/AIDS epidemic in China is severe and complex. Comprehensive spatiotemporal analysis provides valuable insights for intervention policy formulation. Previous studies often overlooked local changes in time trends and regional disease development patterns. In this study, we propose a new spatiotemporal analysis method based on the Joinpoint Regression (JPR) model and K-means clustering to refine the division of stages in China's AIDS epidemic and differentiate geographical areas based on development patterns. We then use hotspot analysis to describe the current status of AIDS, presenting a comprehensive view of the epidemic in China from 2004 to 2018. JPR results show China's AIDS incidence generally increased during 2004–2018 (AAPC = 23.2), with a significant turning point in 2012. Time series feature clustering classifies the country into three regions: Southwest, Central and Eastern, and the other region. Each region corresponds to different epidemic causes and transmission pathways, informing targeted interventions. Hotspot analysis reveals the Southwest region as the most severely affected area, requiring intensified prevention and control efforts. This study offers a novel from both time and space dimensions for understanding and combating the AIDS epidemic, furnishing valuable references for policymakers in the further development of strategies.</p>
+    <p>HIV/AIDS remains one of the most severe global public health challenges, with nearly one million deaths annually from HIV-related causes. Since China reported its first case in 1985, the epidemic has evolved through three phases: introduction (1985–1988), expansion (1989–1994), and widespread dissemination (1995–present). Previous studies have largely focused on single-time-point spatial analysis or aggregate temporal trends, lacking an integrated examination of local turning points, regional clustering, and spatial hotspots. This study uniquely combines Joinpoint Regression (JPR), K-Means clustering, and Getis-Ord Gi* hotspot analysis, using incidence, mortality, and prevalence data for 31 Chinese provinces (2004–2018) from the Chinese Public Health Science Data Center.</p>
+    <p><strong>Key findings:</strong> The national Average Annual Percent Change (AAPC) was 23.2%, with 2012 identified as a critical turning point — the APC dropped sharply from 34.71% (2004–2012) to 9.30% (2012–2018), coinciding with China's 12th Five-Year Plan for HIV/AIDS intervention. K-Means clustering divided the country into three distinct regions: Southwest (injection drug use as the dominant transmission route), Central &amp; Eastern (blood-borne transmission), and other regions (secondary transmission). Hotspot analysis confirmed seven southwestern provinces as the epidemic epicenter. This study provides a novel spatiotemporal analytical framework for precision public health interventions.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>HIV/AIDS has been one of the most significant global public health threats since its emergence. Approximately 37.9 million people live with HIV worldwide, with nearly one million dying from HIV-related causes each year. Since China reported its first case in 1985, the epidemic has progressed through three distinct phases: the introduction phase (1985–1988), characterized by imported cases; the expansion phase (1989–1994), marked by localized transmission among injection drug users (IDUs); and the widespread dissemination phase (1995–present), affecting all 31 provinces with sexual transmission becoming the dominant route.</p>
+    <p>Three critical gaps remain in prior research: the lack of systematic identification of localized temporal turning points (segment-specific APCs); the absence of quantitative clustering of provinces based on epidemic trajectory similarity; and insufficient understanding of spatial aggregation and the evolution of hotspots. This study addresses these gaps by chaining JPR temporal analysis, K-Means spatial clustering, and Gi* hotspot detection into an integrated framework, systematically characterizing the spatiotemporal evolution of HIV/AIDS across China's 31 provinces from 2004 to 2018.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>2. Data</h2>
+    <p>All data were sourced from the Chinese Public Health Science Data Center (<a href="http://www.phsciencedata.cn" target="_blank" rel="noopener">www.phsciencedata.cn</a>), the public data portal of the Chinese Center for Disease Control and Prevention (CDC). Three core indicators — annual incidence, annual mortality, and annual prevalence — were collected for all 31 provinces, autonomous regions, and municipalities (excluding Hong Kong, Macau, and Taiwan) spanning 15 years from 2004 to 2018. Key data limitations include: the dataset begins only in 2004, precluding analysis of earlier transmission chains; provincial-level data mask within-province heterogeneity at the prefectural and county levels; and the dataset does not disaggregate contributions by transmission route (sexual, blood-borne, mother-to-child).</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>3. Methods</h2>
+    <figure>
+      <img src="../static/images/aids-jpr-turning-points.jpg" alt="Technical roadmap of the study: JPR Analysis, Cluster Analysis, Hotspot Analysis" style="max-width:100%;height:auto;">
+      <figcaption>Fig. 1. The technical roadmap of the study, including three parts: (1) JPR Analysis; (2). AIDS development pattern cluster analysis; (3) Hotspot analysis.</figcaption>
+    </figure>
+    <h3>3.1 Joinpoint Regression (JPR)</h3>
+    <p>Phase 1 — temporal dimension analysis. A Grid Search Method was used to identify the optimal number and location of joinpoints, with Monte Carlo permutation tests (default 4,499 permutations) for model selection and significance assessment. The core outputs are the Annual Percent Change (APC) for each identified segment and the Average Annual Percent Change (AAPC) over the entire study period.</p>
+    <h3>3.2 K-Means Clustering</h3>
+    <p>Phase 2 — based on the JPR results, 30 curve-level features (mean, variance, skewness, kurtosis, entropy, autocorrelation, cumulative sum characteristics, etc.) were extracted for each province. K-Means clustering was then applied to group provinces with similar epidemic trajectory patterns. The Elbow Method determined the optimal number of clusters as k = 3.</p>
+    <h3>3.3 Getis-Ord Gi* Hotspot Analysis</h3>
+    <p>Phase 3 employed the Getis-Ord Gi* spatial autocorrelation statistic to detect statistically significant clusters of high values (hotspots) and low values (cold spots) of HIV/AIDS burden, precisely mapping the clustering results onto geographic space. Together, the three phases form a complete logical progression: temporal turning point → spatial grouping → spatial hotspot.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>4. Results</h2>
+    <h3>4.1 JPR Turning Point Identification</h3>
+    <p>At the national level, the AAPC was 23.2%, with all 31 provinces showing an increasing trend. The model identified 2012 as the national turning point: before the joinpoint (2004–2012), APC = 34.71%, reflecting rapid growth; after the joinpoint (2012–2018), APC dropped sharply to 9.30%. Southwestern provinces (Guangxi, Yunnan, Sichuan) consistently showed the fastest growth rates nationwide.</p>
+    <h3>4.2 Regional Clustering</h3>
+    <p>K-Means clustering partitioned the 31 provinces into three epidemiologically distinct regions: Cluster 1 (Southwest: Guangxi, Yunnan, Sichuan, Chongqing, Guizhou, Hainan) — dominated by injection drug use (IDU) transmission, with the most severe epidemic burden; Cluster 2 (Central &amp; Eastern: Henan, Hubei, Hunan, Anhui, Zhejiang, Guangdong, etc.) — historically driven by blood-borne transmission from illegal plasma collection, with moderate burden; Cluster 3 (Other regions: Beijing, Shanghai, Tibet, Qinghai, Xinjiang, etc.) — characterized by secondary transmission, with relatively low burden.</p>
+    <figure>
+      <img src="../static/images/aids-kmeans-clusters.jpg" alt="K-Means clustering map: Southwest, Central and East, and Other regions" style="max-width:100%;height:auto;">
+      <figcaption>Fig. 4. Clustering results of AIDS development patterns of Chinese provinces: Type1: Southwest region; Type2: Central and East region; Type3: The other region.</figcaption>
+    </figure>
+    <h3>4.3 Spatial Hotspots</h3>
+    <p>The Getis-Ord Gi* results strongly aligned with the clustering patterns: seven hotspot provinces (Sichuan, Chongqing, Yunnan, Guangxi, Guizhou, Hunan, Hainan) concentrated in the Southwest, while ten cold-spot provinces were distributed along the eastern coast and in the north. The Southwest consistently formed the core transmission area, with hotspot boundaries remaining relatively stable over the study period. Notably, Guangxi pioneered local policies such as needle exchange programs and methadone maintenance treatment in 2011, achieving the most pronounced turning-point effect after 2012 — establishing the "Guangxi Model" as a replicable blueprint for precision intervention.</p>
+    <figure>
+      <img src="../static/images/aids-getis-ord-hotspots.jpg" alt="Getis-Ord Gi* hotspot map of AIDS incidence in China, 2018" style="max-width:100%;height:auto;">
+      <figcaption>Fig. 6. Hotspot analysis result of AIDS incidence in China, 2018.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>5. Discussion</h2>
+    <h3>5.1 Methodological Contribution</h3>
+    <p>The core innovation of this study lies in the three-stage cascading logic — "temporal turning point → spatial grouping → spatial hotspot." JPR identifies turning points in the pure temporal dimension, K-Means maps temporal trends onto spatial groupings, and Gi* further pinpoints those groupings as hot or cold spots in geographic space. No prior study has integrated these three methods into a unified spatiotemporal framework for HIV/AIDS analysis.</p>
+    <h3>5.2 Validation of Policy Intervention Effectiveness</h3>
+    <p>The 2012 turning point closely aligns with China's 12th Five-Year Plan (2011–2015), during which the government substantially expanded HIV testing coverage, scaled up antiretroviral therapy (ART), and strengthened interventions targeting high-risk populations (needle exchange, methadone maintenance, condom promotion). Guangxi's early adoption of IDU-targeted policies in 2011 produced the most pronounced turning-point effect among all provinces, suggesting that localized, precision interventions are far more effective than generalized national measures.</p>
+    <h3>5.3 Limitations and Future Directions</h3>
+    <p>The dataset begins only in 2004, the provincial resolution cannot capture intra-provincial disparities, and transmission-route-specific contributions remain unmeasured. Future research should adopt county-level analysis with higher granularity and incorporate transmission-route-specific data to enable more refined, targeted prevention and control strategies.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>6. Conclusion</h2>
+    <ol>
+      <li>This study is the first to chain JPR, K-Means clustering, and Gi* hotspot analysis into a unified spatiotemporal framework for HIV/AIDS research, filling a critical methodological gap.</li>
+      <li>The national epidemic continued to grow overall (AAPC = 23.2%), but the growth rate plummeted from 34.71% to 9.30% after 2012, confirming the substantial effectiveness of over a decade of public health interventions.</li>
+      <li>The Southwest formed the unequivocal epicenter (7 hotspot provinces, historically driven by IDU transmission), with Central &amp; Eastern regions (blood-borne pathway) and other regions (secondary transmission) constituting a clear three-zone differentiated landscape.</li>
+      <li>National interventions are effective but must be locally tailored — the Southwest requires sustained, precision-targeted resource allocation and multi-sectoral coordination, while other regions must vigilantly guard against new waves driven by sexual transmission. The spatiotemporal integration methodology demonstrated here holds broad applicability for epidemiological research on other infectious diseases, including COVID-19 and tuberculosis.</li>
+    </ol>
   </div>
 </section>
 
