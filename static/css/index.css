@@ -157,6 +157,32 @@ body {
   font-size: 75%;
 }
 
+/* tables */
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 16px;
+  overflow-x: auto;
+  display: block;
+  font-size: 14px;
+}
+
+.markdown-body thead {
+  background: #f6f8fa;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid #d0d7de;
+  padding: 6px 13px;
+  vertical-align: top;
+}
+
+.markdown-body th {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 @media (max-width: 768px) {
   .markdown-body {
     padding: 24px 16px 60px;
