@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Applicability and sensitivity analysis of vector cellular automata model for land cover change">
+  <meta name="description" content="Applicability and sensitivity analysis of vector cellular automata model for land cover change: comparing VCA, PLUS, and FLUS models with spatial scale sensitivity analysis">
   <title>Applicability VCA | Zhenhui Sun</title>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/papers.css">
@@ -12,16 +12,17 @@
 
 <nav class="back-nav">
   <div class="container">
-    <a href="../">← Zhenhui Sun</a>
+    <a href="../">Zhenhui Sun</a>
   </div>
 </nav>
 
 <header class="hero">
   <div class="container">
-    <span class="venue-tag">Computers, Environment and Urban Systems · 2024</span>
-    <h1>Applicability and sensitivity analysis of vector cellular automata model for land cover change</h1>
+    <span class="venue-tag">GIS · Land Cover Change · Cellular Automata · Spatial Modeling</span>
+    <h1>Applicability and Sensitivity Analysis of Vector Cellular Automata Model for Land Cover Change</h1>
+    <p class="subtitle">A comparative study of VCA, patch-based CA (PLUS), and pixel-based CA (FLUS) models for simulating land cover changes, with spatial scale sensitivity analysis across Shenzhen, China</p>
     <p class="authors">
-      Yao Yao, Ying Jiang, <strong>Zhenhui Sun</strong>, Linlong Li, Dongsheng Chen, Kailu Xiong, Anning Dong, Tao Cheng, Haoyan Zhang, Xun Liang <em>et al.</em>
+      Yao Yao, Ying Jiang, <strong>Zhenhui Sun</strong>, Linlong Li, Dongsheng Chen, Kailu Xiong, Anning Dong, Tao Cheng, Haoyan Zhang, Xun Liang, Qingfeng Guan
     </p>
     <p class="venue">Computers, Environment and Urban Systems · 2024</p>
     <p class="meta">DOI: <a href="https://doi.org/10.1016/j.compenvurbsys.2024.102090" target="_blank">10.1016/j.compenvurbsys.2024.102090</a> · ISSN: 0198-9715</p>
@@ -43,7 +44,92 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>This research investigates the applicability and sensitivity of vector-based cellular automata models for land cover change simulation, evaluating model robustness and key parameter sensitivities across diverse geographic contexts.</p>
+    <p>Urbanization-induced land cover changes significantly impact ecological environments and socioeconomic growth. Vector-based cellular automata (VCA) models are an advanced cellular automata (CA) method that use irregular cells and perform well in simulating land use changes within urban areas. However, the applicability and parameter setting of VCA models for land cover change simulation are still challenging for researchers. To address this issue, this study applied a VCA model and two raster-based models, i.e., a pixel-based CA model and a patch-based CA model, to simulate and compare their performance in simulating land cover changes. The results show that VCA and patch-based CA were superior, with VCA's FoM being 39.74% higher than pixel-based CA and 11.00% over patch-based CA. VCA effectively tracks construction land expansion in rapidly developing areas, while patch-based CA excels in central urban and suburban shifts, fitting broader study scopes. Additionally, a spatial scale sensitivity analysis of the VCA model revealed that a smaller VCA cell size improves accuracy but introduces a risk of spatial pattern errors. Notably, the scope of study impacts VCA accuracy more than cell size. These findings bolster land cover change modeling theory and offer insights for precise future land cover change simulations and decision-making.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>Cellular automata (CA) models are widely used to simulate land cover spatiotemporal dynamics, but traditional raster CA models (e.g., FLUS, PLUS) represent urban space with regular pixels, which cannot fully capture irregular parcel-based urban structures. VCA models address this limitation by using irregular polygons, aligning better with planning practice. However, VCA has mainly been applied to urban land use types; whether it works well for natural land cover — with its fragmented patches and irregular pattern — is unknown.</p>
+    <p>This study fills that gap by systematically comparing VCA, PLUS, and FLUS on land cover simulation in Shenzhen. We quantify urban expansion patterns via the Expand Intensity Index (EII), evaluate each model's strengths in different expansion contexts, and conduct a spatial scale sensitivity analysis on VCA's cell size parameter. The goal is to provide practical guidance for model selection and parameter calibration in land cover change research.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>2. Methodology</h2>
+    <p>The workflow comprises three stages: (1) <strong>Data preprocessing</strong> — raster land cover data is converted to vector parcels and split via the Minimum Area Boundary Rectangle (MABR) method; (2) <strong>Simulation</strong> — FLUS, PLUS, and VCA are each used to predict 2018 land cover based on 2008 data, driven by 14 natural, traffic, and socioeconomic factors; (3) <strong>Scale sensitivity analysis</strong> — VCA is tested across different cell sizes to examine its spatial scale uncertainty.</p>
+    <p>The three models differ fundamentally: FLUS uses ANN with self-adaptive inertia on regular pixels; PLUS uses Random Forest (RF) with the LEAS strategy and CARS patch-seeding mechanism; VCA also uses RF but on irregular parcels, with a centroid-intercepted area-weighted buffer for neighborhood effects. Accuracy is assessed via OA, Kappa, and FoM; landscape pattern similarity is measured by six landscape indices (Area_MN, ED, LPI, AI, LSI, PAFRAC); and spatial expansion intensity is quantified by EII.</p>
+
+    <figure>
+      <img src="../static/images/applicability-vca-fig1.jpg" alt="Fig. 1">
+      <figcaption>Fig. 1. Flowchart of land cover change simulation via multiple CA model.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>3. Results</h2>
+    <h3>3.1 Study Area and Data</h3>
+    <p>Shenzhen is a rapidly urbanizing city in southern China (~2000 km²). Land cover data from CNLUCC (30 m, 2008–2018) was reclassified into four types: cultivated land, non-construction land, water area, and construction land. Fourteen driving factors were included: natural (elevation, slope, distance to river/coastline), traffic (distance to roads, railways, subway, bus density), and socioeconomic (distance to medical, schools, entertainment, housing prices).</p>
+
+    <h3>3.2 Model Accuracy and Landscape Patterns</h3>
+    <p>PLUS achieved the highest OA, while VCA attained the highest FoM — 39.74% above FLUS and 11.00% above PLUS — because VCA better captures actual non-construction-to-construction transitions. All models exceeded Kappa > 0.75, confirming reliability. In terms of landscape patterns, FLUS best captured fragmentation and shape complexity, PLUS excelled at dominant patch aggregation, and VCA maintained better landscape compactness and regularity. However, none of the models fully replicated Shenzhen's increasingly compact urban form.</p>
+
+    <h3>3.3 Regional Differences and Expansion Patterns</h3>
+    <p>VCA outperformed in districts with rapid construction expansion — Guangming, Longhua, and Longgang (EII values of 2.05%, 1.16%, 1.00%), where it exceeded the average FoM by 45%. VCA's FoM correlated strongly with EII (r = 0.79 vs. 0.67 for PLUS), confirming its superiority for modeling infill growth. In contrast, PLUS performed better in mature central districts (Futian, Luohu) where construction land nears its limit (EII ≈ 0.15%).</p>
+
+    <figure>
+      <img src="../static/images/applicability-vca-fig4.jpg" alt="Fig. 4">
+      <figcaption>Fig. 4. The simulation accuracy of different CA models in district.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/applicability-vca-fig5.jpg" alt="Fig. 5">
+      <figcaption>Fig. 5. The correlation between the FoM (y-axis) of VCA (a), PLUS (b), and FLUS (c) and EII index. (d) Simulation accuracy and EII of the three models in different districts.</figcaption>
+    </figure>
+
+    <h3>3.4 Spatial Scale Sensitivity</h3>
+    <p>As VCA cell size increased from 2 to 10 ha, accuracy indices declined (48.7% of FoM decrease occurred within 5–7 ha; Kappa fell below 0.75 at >6 ha), while landscape similarity rose sharply, peaking at 94.6% at 10 ha. Small cells (< 5 ha) caused severe landscape fragmentation, reducing similarity by 73.4%. Two-way ANOVA showed that study scope (partial η² = 0.995) had far greater influence than cell size (partial η² = 0.853). A 5 ha cell size was recommended as the optimal balance for Shenzhen.</p>
+
+    <h3>3.5 Implementation Details of Different Models</h3>
+    <p>Detailed analysis revealed three distinct expansion patterns: infill adjacent to existing patches (Guangming), mixed filling and edge growth (Longhua, Nanshan, Longgang), and leap-like growth away from original boundaries (Dapeng). The VCA model with a smaller cell size best captured the orientation and amplitude of construction land expansion, guiding urban growth to concentrate in areas with strong local effects. PLUS and FLUS were largely limited to simulating edge expansion along existing urban boundaries.</p>
+
+    <figure>
+      <img src="../static/images/applicability-vca-fig7.jpg" alt="Fig. 7">
+      <figcaption>Fig. 7. Details of simulation results of different models.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>4. Discussion</h2>
+
+    <h3>4.1 Methodological Contribution</h3>
+    <p>The core contribution is the first systematic multi-model comparison of VCA and raster CA for land cover change simulation. Both VCA and PLUS achieve high accuracy (OA > 0.85, Kappa > 0.75, FoM > 0.3), confirming VCA's applicability beyond urban land use to natural land cover. VCA's FoM surpasses FLUS by 39.74% and PLUS by 11.00%, demonstrating its ability to capture spatial heterogeneity through irregular parcel-based cellular space.</p>
+
+    <h3>4.2 Model Applicability</h3>
+    <p>VCA excels at infill expansion in fast-growing districts (high EII), concentrating growth in areas with strong local effects. PLUS is better suited for edge expansion in mature centers and suburbs (lower EII), with a unique patch-seeding mechanism that partially captures leapfrog growth and offers higher computational efficiency for large study extents. Model selection should align with regional development characteristics.</p>
+
+    <h3>4.3 Scale Sensitivity</h3>
+    <p>Finer cells improve accuracy but fragment the landscape (similarity drops 73.4%); coarser cells preserve pattern but lose detail. A 5 ha cell size balances both. Crucially, study scope (partial η² = 0.995) has a much greater impact than cell size (partial η² = 0.853) — meaning regional heterogeneity outweighs parameter tuning.</p>
+
+    <h3>4.4 Limitations and Future Work</h3>
+    <p>The single-city case (Shenzhen) limits generalizability, and only cell size was examined among VCA parameters. Future studies should test VCA across diverse regions and conduct comprehensive sensitivity analysis on neighborhood strategies and transition rules.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>5. Conclusion</h2>
+    <ol>
+      <li>VCA achieves the highest FoM among the three models, excelling in rapidly developing areas with infill expansion, while PLUS is better suited for mature central or suburban areas due to its edge-expansion capability and efficiency.</li>
+      <li>Cell size is a critical VCA parameter — 5 ha balances accuracy and landscape continuity. Study scope exerts a greater influence on accuracy than cell size.</li>
+      <li>Model selection should match regional development characteristics: VCA for infill-dominated growth, PLUS for large-scale or edge-expansion scenarios. These findings offer practical guidance for land cover change simulation and planning.</li>
+    </ol>
   </div>
 </section>
 
@@ -56,8 +142,10 @@
   author={Yao, Yao and Jiang, Ying and Sun, Zhenhui and
           Li, Linlong and Chen, Dongsheng and Xiong, Kailu and
           Dong, Anning and Cheng, Tao and Zhang, Haoyan and
-          Liang, Xun},
+          Liang, Xun and Guan, Qingfeng},
   journal={Computers, Environment and Urban Systems},
+  volume={109},
+  pages={102090},
   year={2024},
   doi={10.1016/j.compenvurbsys.2024.102090}
 }</pre>
