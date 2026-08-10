@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="CoCA: Spatial cooperative simulation and future prediction of land-population-economy in urban agglomerations">
   <title>CoCA | Zhenhui Sun</title>
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../static/css/papers.css">
@@ -12,7 +11,7 @@
 
 <nav class="back-nav">
   <div class="container">
-    <a href="../">← Zhenhui Sun</a>
+    <a href="../">Zhenhui Sun</a>
   </div>
 </nav>
 
@@ -21,9 +20,10 @@
     <span class="venue-tag">Landscape and Urban Planning · 2025</span>
     <h1>CoCA: Spatial cooperative simulation and future prediction of "land-population-economy" in urban agglomerations</h1>
     <p class="authors">
-      Chenglong Zeng, Yao Yao, Jiayao Liu, <strong>Zhenhui Sun</strong>, Kun Zhou, Dongsheng Chen, Qingfeng Guan
+      Chenglong Zeng, Yao Yao, Jiayao Liu, <strong>Zhenhui Sun</strong>, Kun Zhou, Dongsheng Chen, Qingfeng Guan*
     </p>
-    <p class="venue">Landscape and Urban Planning · November 2025</p>
+    <p class="note">* Corresponding author.</p>
+    <p class="venue">Landscape and Urban Planning · Volume 263 · 2025</p>
     <p class="meta">DOI: <a href="https://doi.org/10.1016/j.landurbplan.2025.105442" target="_blank">10.1016/j.landurbplan.2025.105442</a></p>
     <div class="links">
       <a href="https://doi.org/10.1016/j.landurbplan.2025.105442" target="_blank">Paper</a>
@@ -43,29 +43,350 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>This study proposes CoCA, a spatial cooperative simulation framework for modeling and predicting the coupled "land-population-economy" dynamics in urban agglomerations, providing insights into sustainable regional development.</p>
+    <p>
+      Urbanization pushes cities to develop into metropolitan areas, resulting in increasingly complex interactions
+      among land use, population, and the economy. Traditional simulations often neglect cross-factor impacts,
+      limiting their ability to capture the coupled dynamics of metropolitan systems. This study proposes a novel
+      <strong>CoCA (Cooperative Cellular Automata)</strong> framework that integrates a Dynamic CA model (DCA, based on the
+      S-curve algorithm) with a highly accurate patch-generation land use model. The CoCA framework includes three
+      integrated modules — <strong>land use</strong>, <strong>population density</strong>, and <strong>economic density</strong> — enabling
+      cooperative simulation of the "land-population-economy" triad. A dynamic updating strategy for driving factors
+      is introduced to quantify multi-factor cooperative effects. Model verification using actual data from the
+      <strong>Wuhan Metropolitan Area (WMA)</strong> demonstrates that CoCA not only maintains high accuracy in land use
+      simulations but also achieves notable improvements in population and economic density simulations. Compared to
+      the widely used PLUS and Clark CA models, land use simulation accuracy increased by <strong>over 35%</strong>, while the
+      Mean Absolute Percentage Error for population and economic density simulations decreased by <strong>over 38%</strong>.
+      Based on the dynamic updating strategy, three future scenarios were projected for WMA in 2030: Natural
+      Development (O1), Ecological Protection (O2), and Balanced Urban Expansion (O3). This research provides a
+      reference for exploring the impacts of multi-factor cooperation on simulation accuracy and offers practical
+      guidance for coordinated development planning in metropolitan areas.
+    </p>
+    <div class="keywords">
+      <span>Keywords: </span>
+      <span class="tag">Spatial cooperative simulation</span>
+      <span class="tag">Cellular automata</span>
+      <span class="tag">Multi-factor collaborative simulation</span>
+      <span class="tag">Metropolitan area</span>
+      <span class="tag">Land-population-economy</span>
+    </div>
   </div>
 </section>
 
-<section class="bibtex">
+<!-- ===== 1. Introduction ===== -->
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>
+      With the acceleration of global urbanization, individual cities are progressively merging into large-scale
+      metropolitan areas characterized by highly interconnected social, economic, and spatial systems. In these
+      complex regions, the interactions among <strong>land use</strong>, <strong>population distribution</strong>, and
+      <strong>economic activity</strong> are the three most representative factors shaping metropolitan dynamics.
+      Understanding and forecasting how these three factors co-evolve is essential for sustainable urban and
+      regional planning.
+    </p>
+    <p>
+      Recent advances in land-use simulation have produced powerful models such as Cellular Automata (CA),
+      Artificial Neural Networks (ANN), CLUE-S, FLUS, and PLUS. While these models can effectively predict
+      land-use transitions at fine spatial resolutions, they typically operate on a <strong>single-factor basis</strong>
+      — simulating land-use change alone without incorporating the coupled effects of population and economic
+      dynamics. Conversely, approaches such as System Dynamics (SD) or intelligent prediction models
+      (e.g., grey models, neural networks) can forecast population and economic trends at aggregate scales,
+      but they lack the spatial resolution needed to capture <strong>intra-metropolitan heterogeneity</strong>.
+    </p>
+    <p>
+      To bridge this gap, this paper proposes the <strong>CoCA (Cooperative Cellular Automata)</strong> framework —
+      a novel multi-factor cooperative simulation model that seamlessly integrates land use, population density,
+      and economic density within a unified CA-based architecture. The key innovations are threefold: (1) a
+      <strong>dynamic CA model</strong> (DCA) based on the S-curve algorithm that adaptively adjusts transition
+      probabilities across simulation phases; (2) a <strong>dynamic updating strategy</strong> for driving factors that
+      captures cross-factor cooperative effects; and (3) a multi-scenario prediction module that projects future
+      "land-population-economy" patterns under diverse policy pathways. We validate CoCA through a comprehensive
+      case study in the <strong>Wuhan Metropolitan Area (WMA)</strong>, demonstrating significant accuracy gains
+      over state-of-the-art models and providing actionable insights for coordinated metropolitan development.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 2. Study Area and Dataset ===== -->
+<section class="section">
+  <div class="container">
+    <h2>2. Study Area and Dataset</h2>
+    <p>
+      The <strong>Wuhan Metropolitan Area (WMA)</strong>, located in central China, encompasses nine prefecture-level
+      cities including the core city of Wuhan and surrounding cities such as Huangshi, Ezhou, Xiaogan, Huanggang,
+      Xianning, Xiantao, Qianjiang, and Tianmen. Covering a total area of approximately <strong>57,800 km²</strong>,
+      WMA is one of China's most rapidly developing metropolitan regions and serves as a critical node in the
+      Yangtze River Economic Belt. The area exhibits pronounced spatial heterogeneity in land-use patterns,
+      population density, and economic development levels, making it an ideal testbed for cooperative multi-factor
+      simulation.
+    </p>
+    <p>
+      The dataset for this study comprises: (1) <strong>land-use data</strong> for the years 2000, 2005, and 2010
+      at 30 m resolution; (2) <strong>population density</strong> and <strong>economic density (GDP)</strong> data at
+      the county/district level for corresponding years; and (3) a suite of <strong>spatial driving factors</strong>
+      including elevation, slope, distances to railways, highways, main roads, city centers, and water bodies.
+      Data from 2000–2005 were used for model training, and 2005–2010 data served as the validation period.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 3. Methodology ===== -->
+<section class="section">
+  <div class="container">
+    <h2>3. Methodology</h2>
+
+    <figure>
+      <img src="../static/images/coca-fig3-framework.jpg" alt="CoCA research framework">
+      <figcaption>Fig. 3. Research framework of the spatial collaborative simulation.</figcaption>
+    </figure>
+
+    <h3>3.1 Factor Simulation Based on Cellular Automata</h3>
+    <p>
+      The core of CoCA is the <strong>Dynamic CA (DCA)</strong> model, which extends traditional CA by incorporating
+      the S-curve algorithm to dynamically adjust land-use transition probabilities across three simulation phases:
+      an initial slow-growth phase, a rapid-expansion phase, and a saturation phase. This three-phase mechanism
+      better reflects the real-world dynamics of urban growth. For each cell, the suitability probability
+      <em>P</em> is calculated as a weighted combination of multiple driving factors, with weights determined through
+      logistic regression or machine learning methods.
+    </p>
+
+    <h3>3.2 Multi-Factor Spatial Cooperative Simulation</h3>
+    <p>
+      The CoCA framework integrates <strong>three cooperative modules</strong> — land use, population density, and
+      economic density — within a unified simulation system. The novelty lies in the <strong>dynamic updating
+      strategy</strong>: after each land-use iteration, the updated land-use pattern feeds back into the population
+      and economic modules, and vice versa. This creates a closed-loop cooperative mechanism where changes in one
+      factor influence the simulation of others, capturing the intricate feedbacks among land development,
+      population migration, and economic growth.
+    </p>
+    <p>
+      Specifically, the cooperative simulation proceeds as follows: (1) the DCA model simulates land-use
+      transitions based on current driving factors; (2) population density is updated using land-use-dependent
+      allocation rules; (3) economic density is distributed according to population and land-use patterns;
+      (4) the updated population and economic distributions are fed back as new driving factors for the next
+      land-use iteration. Additionally, a <strong>patch-generation strategy</strong> ensures that simulated urban
+      patches maintain realistic morphological characteristics rather than producing scattered, fragmented patterns.
+    </p>
+
+    <figure>
+      <img src="../static/images/coca-fig4-collaborative-process.jpg" alt="Collaborative simulation model process flow">
+      <figcaption>Fig. 4. Process flow of the collaborative simulation model.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/coca-fig5-dynamic-update.jpg" alt="Stepwise dynamic driving factor update process">
+      <figcaption>Fig. 5. Stepwise dynamic driving factor update process flow.</figcaption>
+    </figure>
+
+    <h3>3.3 Multi-Scenario Prediction</h3>
+    <p>
+      To explore alternative future pathways, three policy-oriented scenarios were designed for WMA in 2030:
+    </p>
+    <ol>
+      <li><strong>O1 — Natural Development:</strong> Land-use, population, and economic changes follow historical
+      trends without additional policy interventions. Transition probabilities are derived directly from the
+      calibrated DCA model using historical patterns.</li>
+      <li><strong>O2 — Ecological Protection:</strong> Ecological land types (forest, grassland, water bodies) are
+      strictly protected from conversion to built-up land. Development is constrained to existing urban areas,
+      prioritizing environmental sustainability over rapid expansion.</li>
+      <li><strong>O3 — Balanced Urban Expansion:</strong> Moderate development restrictions promote balanced growth
+      across all nine cities in WMA, encouraging polycentric urban structures and coordinated regional
+      development rather than core-city dominance.</li>
+    </ol>
+
+    <h3>3.4 Accuracy Evaluation Metrics</h3>
+    <p>
+      Model performance is evaluated using multiple complementary metrics: <strong>Figure of Merit (FoM)</strong>,
+      <strong>Overall Accuracy (OA)</strong>, and <strong>Kappa coefficient</strong> for land-use simulation;
+      <strong>Mean Absolute Percentage Error (MAPE)</strong>, <strong>Root Mean Square Error (RMSE)</strong>, and
+      <strong>R²</strong> for population and economic density simulations. This multi-metric approach ensures
+      comprehensive assessment across all three simulated factors.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 4. Results ===== -->
+<section class="section">
+  <div class="container">
+    <h2>4. Results</h2>
+
+    <h3>4.1 Results of Multi-Factor Spatial Cooperative Simulation</h3>
+    <p>
+      The CoCA model was trained on 2000–2005 data and validated against 2005–2010 observations. For land-use
+      simulation, CoCA achieved high accuracy with strong agreement between simulated and actual land-use patterns
+      across all categories. The model accurately captured the spatial expansion trends of built-up land,
+      particularly the infill and edge-expansion patterns characteristic of WMA's development trajectory.
+    </p>
+    <p>
+      For population density and economic density, the cooperative simulation produced spatially coherent
+      distributions that closely matched the observed patterns. The <strong>dynamic updating strategy</strong>
+      significantly outperformed the static approach, demonstrating that incorporating cross-factor feedbacks
+      is essential for accurate multi-factor simulation. The cooperative effects were most pronounced in
+      peri-urban areas where land-use transitions, population influx, and economic growth are most dynamic.
+    </p>
+
+    <figure>
+      <img src="../static/images/coca-fig6-simulation-results.jpg" alt="2020 collaborative simulation results for WMA">
+      <figcaption>Fig. 6. 2020 collaborative simulation results for the Wuhan metropolitan area. (A1-A2) Land use; (B1-B2) Population density (thousand people per km²); (C1-C2) Economic density (thousand CNY per km²); Area 1: Major urban areas in Wuhan; Area 2: Major urban areas in Ezhou and Huanggang.</figcaption>
+    </figure>
+
+    <h3>4.2 Model Comparison and Analysis</h3>
+    <p>
+      CoCA was benchmarked against two widely used models: <strong>PLUS</strong> (Patch-generating Land Use
+      Simulation) and <strong>Clark CA</strong>. The comparative results demonstrate CoCA's substantial advantages:
+    </p>
+    <ol>
+      <li><strong>Land-use simulation:</strong> CoCA's Overall Accuracy improved by <strong>over 35%</strong> compared to
+      both PLUS and Clark CA, with particularly strong performance in simulating urban expansion edges and
+      small-scale land-use transitions.</li>
+      <li><strong>Population density:</strong> CoCA achieved a MAPE reduction of <strong>over 38%</strong> relative to
+      the comparison models, effectively capturing the spatial redistribution of population driven by land-use
+      changes.</li>
+      <li><strong>Economic density:</strong> Similarly, CoCA reduced the MAPE for economic density simulation by
+      <strong>over 38%</strong>, accurately reflecting the concentration and diffusion patterns of economic
+      activities across the metropolitan area.</li>
+    </ol>
+
+    <figure>
+      <img src="../static/images/coca-fig7-landuse-comparison.jpg" alt="Comparison of land use simulation results across models">
+      <figcaption>Fig. 7. Comparison of land use simulation results across models. (A1-A2) Ground truth; (B1-B2) PLUS simulation; (C1-C2) Clark algorithm simulation; (D1-D2) CoCA multi-factor collaborative simulation. Area 1: Major urban areas in Wuhan; Area 2: Major urban areas in Ezhou and Huanggang.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/coca-fig8-population-comparison.jpg" alt="Comparison of population density simulation results across models">
+      <figcaption>Fig. 8. Comparison of population density (thousand people per km²) simulation results across models. (A1-A2) Ground truth; (B1-B2) PLUS simulation; (C1-C2) Clark algorithm simulation; (D1-D2) CoCA multi-factor collaborative simulation; Area 1: Major urban areas in Wuhan; Area 2: Major urban areas in Ezhou and Huanggang.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/coca-fig9-economic-comparison.jpg" alt="Comparison of economic density simulation results across models">
+      <figcaption>Fig. 9. Comparison of economic density (thousand CNY per km²) simulation results across models: (A1-A2) Ground truth; (B1-B2) PLUS simulation; (C1-C2) Clark algorithm simulation; (D1-D2) CoCA multi-factor collaborative simulation; Area 1: Major urban areas in Wuhan; Area 2: Major urban areas in Ezhou and Huanggang.</figcaption>
+    </figure>
+
+    <h3>4.3 Multi-Scenario Future Predictions</h3>
+    <p>
+      Under the three scenarios projected for WMA in 2030, distinct "land-population-economy" patterns emerge:
+    </p>
+    <p>
+      Under <strong>Scenario O1 (Natural Development)</strong>, built-up land continues to expand along historical
+      trajectories, with Wuhan maintaining its dominant role as the population and economic center. Peripheral
+      cities experience moderate growth but remain largely subordinate to the core.
+    </p>
+    <p>
+      Under <strong>Scenario O2 (Ecological Protection)</strong>, built-up land expansion is significantly
+      constrained, particularly in ecologically sensitive zones. Population and economic growth are concentrated
+      within existing urban boundaries, resulting in higher densities but limited spatial expansion.
+    </p>
+    <p>
+      Under <strong>Scenario O3 (Balanced Urban Expansion)</strong>, a polycentric urban structure emerges with
+      more evenly distributed population and economic growth across the nine WMA cities. This scenario promotes
+      coordinated regional development, reducing the core-periphery gap while maintaining moderate ecological
+      protection.
+    </p>
+
+    <figure>
+      <img src="../static/images/coca-fig10-projected-2030.jpg" alt="Projected land use distributions in 2030 under different scenarios">
+      <figcaption>Fig. 10. Projected land use distributions in 2030 under different scenarios. (A) Major urban areas in Wuhan; (B) Major urban areas in Ezhou and Huanggang.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== 5. Discussion ===== -->
+<section class="section">
+  <div class="container">
+    <h2>5. Discussion</h2>
+
+    <h3>5.1 Significance of Multi-Factor Cooperative Effects</h3>
+    <p>
+      The results confirm that <strong>multi-factor cooperation</strong> is not merely additive — the dynamic
+      feedback between land use, population, and economy creates emergent patterns that single-factor models
+      cannot reproduce. The dynamic updating strategy effectively captures these interactions, demonstrating
+      that changes in population distribution alter land demand, which in turn reshapes economic geography,
+      feeding back into further population movements. This finding has important implications for metropolitan
+      planning: policies targeting any single factor (e.g., land-use zoning) will inevitably ripple through
+      the entire system.
+    </p>
+
+    <h3>5.2 Integration of the DCA Model</h3>
+    <p>
+      The S-curve-based DCA model's three-phase mechanism (slow growth, rapid expansion, saturation) provides
+      a more realistic representation of urban development dynamics than linear or single-phase models. This
+      temporal nuance is particularly important for metropolitan areas like WMA, where different cities are
+      at different development stages simultaneously. The DCA model adaptively adjusts transition probabilities
+      based on each location's development phase, yielding higher accuracy across heterogeneous urban landscapes.
+    </p>
+
+    <h3>5.3 Policy Implications for WMA</h3>
+    <p>
+      The multi-scenario predictions offer concrete guidance for WMA's coordinated development:
+    </p>
+    <ol>
+      <li>The Natural Development scenario (O1) risks exacerbating core-periphery disparities and may lead to
+      unsustainable land consumption if left unchecked.</li>
+      <li>While Ecological Protection (O2) preserves natural resources, overly restrictive policies could
+      constrain economic vitality in growing peripheral cities.</li>
+      <li>The Balanced Urban Expansion scenario (O3) presents the most promising pathway, promoting polycentric
+      development that leverages each city's comparative advantages while maintaining environmental safeguards.</li>
+      <li>Planners should adopt <strong>differentiated strategies</strong> for cities at different development
+      stages within the metropolitan area, rather than applying uniform policies.</li>
+    </ol>
+
+    <h3>5.4 Limitations and Future Work</h3>
+    <p>
+      Several limitations warrant acknowledgment. First, the population and economic density data were available
+      only at the county/district level, limiting the spatial granularity of these modules. Second, the current
+      framework does not incorporate policy instruments such as transport infrastructure investments or
+      industrial relocation incentives. Future work could integrate higher-resolution socio-economic data,
+      additional factors (e.g., transport networks, public services), and more nuanced policy levers to further
+      enhance the model's applicability.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 6. Conclusion ===== -->
+<section class="section">
+  <div class="container">
+    <h2>6. Conclusion</h2>
+    <p>
+      This study presents <strong>CoCA</strong>, a novel spatial cooperative simulation framework for metropolitan
+      areas that integrates land use, population density, and economic density within a unified CA-based
+      architecture. The key contributions are:
+    </p>
+    <ol>
+      <li>A <strong>multi-factor cooperative simulation framework</strong> that captures the dynamic feedbacks among
+      land, population, and economy — moving beyond traditional single-factor land-use models toward
+      integrated metropolitan system simulation.</li>
+      <li>A <strong>dynamic CA (DCA) model</strong> based on the S-curve algorithm, achieving over 35% improvement
+      in land-use simulation accuracy compared to state-of-the-art models (PLUS, Clark CA).</li>
+      <li>A <strong>dynamic updating strategy</strong> for driving factors that reduces MAPE for population and
+      economic density simulations by over 38%, demonstrating the critical importance of cross-factor cooperation.</li>
+      <li>Multi-scenario future predictions for WMA in 2030 under Natural Development, Ecological Protection,
+      and Balanced Urban Expansion pathways, providing actionable insights for coordinated metropolitan governance.</li>
+    </ol>
+    <p>
+      The CoCA framework offers a powerful tool for understanding and predicting the co-evolution of metropolitan
+      systems, and its modular design facilitates extension to other regions and additional socio-economic factors.
+      As metropolitan areas continue to grow worldwide, cooperative simulation approaches like CoCA will become
+      increasingly essential for sustainable regional planning.
+    </p>
+  </div>
+</section>
+
+<!-- ===== BibTeX ===== -->
+<section class="section" id="bibtex">
   <div class="container">
     <h2>BibTeX</h2>
-    <pre>@article{zeng2025coca,
-  title={CoCA: Spatial cooperative simulation and future prediction
-         of "land-population-economy" in urban agglomerations},
-  author={Zeng, Chenglong and Yao, Yao and Liu, Jiayao and
-          Sun, Zhenhui and Zhou, Kun and Chen, Dongsheng and
-          Guan, Qingfeng},
-  journal={Landscape and Urban Planning},
-  year={2025},
-  doi={10.1016/j.landurbplan.2025.105442}
-}</pre>
+    <pre><code>@article{zeng2025coca,
+  title     = {CoCA: Spatial cooperative simulation and future prediction of "land-population-economy" in urban agglomerations},
+  author    = {Zeng, Chenglong and Yao, Yao and Liu, Jiayao and Sun, Zhenhui and Zhou, Kun and Chen, Dongsheng and Guan, Qingfeng},
+  journal   = {Landscape and Urban Planning},
+  volume    = {263},
+  pages     = {105442},
+  year      = {2025},
+  publisher = {Elsevier},
+  doi       = {10.1016/j.landurbplan.2025.105442}
+}</code></pre>
   </div>
 </section>
-
-<footer class="footer">
-  <div class="container">&copy; 2025 Zhenhui Sun</div>
-</footer>
 
 </body>
 </html>
