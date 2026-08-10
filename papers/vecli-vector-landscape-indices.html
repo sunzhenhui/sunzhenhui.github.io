@@ -11,7 +11,7 @@
 
 <nav class="back-nav">
   <div class="container">
-    <a href="../">← Zhenhui Sun</a>
+    <a href="../">Zhenhui Sun</a>
   </div>
 </nav>
 
@@ -42,28 +42,179 @@
 <section class="section">
   <div class="container">
     <h2>Abstract</h2>
-    <p>VecLI proposes a novel framework for calculating vector-based landscape indices that explicitly accounts for landscape fragmentation, enabling more accurate and fine-grained landscape pattern analysis in GIS environments.</p>
+    <p>
+      Currently, raster-based landscape indices (LIs) that measure the landscape pattern of raster-format land-use
+      data can be easily computed by relevant software (e.g., Fragstats). Unfortunately, open-access software for
+      vector-based LIs often implements a small variety of metrics, which cannot meet the growing demand of the GIS
+      and landscape design research. The common approach often results in a loss of accuracy. Hence, this paper
+      presents the state-of-the-art <strong>VecLI framework</strong> for computing <strong>217 vector-based LIs</strong>.
+      A parcel merging algorithm is proposed to address the impact of landscape fragmentation on vector-based LIs by
+      considering the neighborhood effect. A case study was conducted in Shunde, China. The result shows that
+      <strong>80% of the LIs from VecLI are strongly correlated to Fragstats's LIs</strong>. The patch
+      perimeter-related metrics from VecLI portray a more realistic geographical pattern compared to those from
+      Fragstats. Moreover, the VecLI-based software is developed for use by the GIS and landscape design researchers.
+    </p>
+    <div class="keywords">
+      <span>Keywords: </span>
+      <span class="tag">Vector-based landscape indices</span>
+      <span class="tag">Land parcel fragmentation</span>
+      <span class="tag">Urban environment</span>
+      <span class="tag">Landscape pattern</span>
+      <span class="tag">Fragstats</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>
+      Landscape indices (LIs), also called landscape metrics, are the important basis in the field of landscape
+      ecology. In landscape-related studies, landscape modeling often applies LIs to measure landscape spatial
+      patterns and analyze their temporal evolutions. With the application of LIs in geographic information science,
+      they have been widely used in urban planning, ecological assessment, and environmental management.
+    </p>
+    <p>
+      Currently, the most widely used software for computing LIs is <strong>Fragstats</strong>, which provides
+      251 raster-based metrics in version 4.2. In second place is the R package "landscapemetrics", which
+      implements 134 metrics. However, open-access vector-based software for computing LIs still only offers a
+      paucity of vector-based metrics. These vector-based tools often implement a small variety of metrics and
+      cannot meet the growing demand of GIS and landscape design research.
+    </p>
+    <p>
+      The common approach of converting vector data to raster format for computing LIs often results in a loss of
+      accuracy due to the rasterization process. This paper presents the <strong>VecLI framework</strong> to address
+      these limitations, providing a comprehensive set of 217 vector-based landscape indices and a parcel merging
+      algorithm to handle landscape fragmentation.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>2. VecLI Framework</h2>
+    <p>
+      The VecLI framework is designed for computing vector-based landscape indices considering landscape
+      fragmentation. As shown in Fig. 1, the framework consists of several key components: data input, parcel
+      merging, landscape index computation, and result output.
+    </p>
+
+    <figure>
+      <img src="../static/images/vecli-fig1.jpg" alt="VecLI framework for computing vector-based landscape indices">
+      <figcaption>Fig. 1. VecLI framework for computing vector-based landscape indices considering landscape fragmentation.</figcaption>
+    </figure>
+
+    <h3>2.1 Parcel merging algorithm</h3>
+    <p>
+      A parcel merging algorithm is proposed to address the impact of landscape fragmentation on vector-based LIs.
+      The algorithm merges adjacent parcels with the same land-use type by considering the neighborhood effect,
+      using a breadth-first search (BFS) approach. This process eliminates the artificial fragmentation caused by
+      administrative boundaries and road networks that split otherwise contiguous land-use patches.
+    </p>
+
+    <figure>
+      <img src="../static/images/vecli-fig2.jpg" alt="Process of merging adjacent parcels">
+      <figcaption>Fig. 2. Process of merging the adjacent parcels with the same land-use type. Diverse colors indicate diverse land-use types.</figcaption>
+    </figure>
+
+    <h3>2.2 Landscape index computation</h3>
+    <p>
+      The VecLI framework computes <strong>217 vector-based landscape indices</strong> across three levels: patch-level,
+      class-level, and landscape-level. These indices cover eight metric groups: Area/Edge, Shape, Core Area,
+      Contrast, Aggregation, Diversity, Subdivision, and Isolation. The vector-based computation avoids the
+      accuracy loss inherent in rasterization and provides more precise perimeter and shape measurements.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>3. Case Study</h2>
+    <p>
+      A case study was conducted in <strong>Shunde District, Foshan, China</strong>. Shunde is located in the
+      Pearl River Delta region and has experienced rapid urbanization, making it an ideal study area for
+      investigating landscape pattern changes. The land use and land cover data of Shunde were used to evaluate
+      the VecLI framework.
+    </p>
+
+    <figure>
+      <img src="../static/images/vecli-fig3.jpg" alt="Land use and land cover data of Shunde">
+      <figcaption>Fig. 3. Land use and land cover data of Shunde.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>4. Results and Discussion</h2>
+
+    <h3>4.1 Correlation with Fragstats</h3>
+    <p>
+      The results show that <strong>80% of the LIs from VecLI are strongly correlated to Fragstats's LIs</strong>,
+      validating the correctness of the VecLI framework. The mean values of the raster- and vector-based LIs are
+      closer to each other in measuring the pattern of the landscape.
+    </p>
+
+    <h3>4.2 Perimeter-related metrics</h3>
+    <p>
+      The patch perimeter-related metrics from VecLI portray a <strong>more realistic geographical pattern</strong>
+      compared to those from Fragstats. This is because vector-based computation preserves the actual geometric
+      shape of land parcels, while rasterization introduces staircase effects along patch boundaries that distort
+      perimeter measurements.
+    </p>
+
+    <h3>4.3 Impact of parcel merging</h3>
+    <p>
+      The parcel merging algorithm effectively addresses the impact of landscape fragmentation on vector-based LIs.
+      By merging adjacent parcels with the same land-use type, the algorithm reduces the artificial fragmentation
+      caused by administrative boundaries and road networks, resulting in more accurate landscape pattern
+      measurements.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>5. Conclusion</h2>
+    <p>
+      This paper presents the VecLI framework for computing vector-based landscape indices considering landscape
+      fragmentation. The main contributions are:
+    </p>
+    <ol>
+      <li>The VecLI framework computes <strong>217 vector-based LIs</strong>, significantly expanding the available
+      metrics for vector-based landscape analysis compared to existing tools.</li>
+      <li>A <strong>parcel merging algorithm</strong> is proposed to address the impact of landscape fragmentation
+      on vector-based LIs by considering the neighborhood effect.</li>
+      <li>The case study in Shunde shows that <strong>80% of the LIs from VecLI are strongly correlated to
+      Fragstats's LIs</strong>, and the patch perimeter-related metrics from VecLI portray a more realistic
+      geographical pattern.</li>
+      <li>The <strong>VecLI-based software</strong> is developed for use by GIS and landscape design researchers,
+      providing an open-access tool for vector-based landscape index computation.</li>
+    </ol>
   </div>
 </section>
 
 <section class="bibtex">
   <div class="container">
     <h2>BibTeX</h2>
-    <pre>@article{yao2022vecli,
-  title={VecLI: A framework for calculating vector landscape
-         indices considering landscape fragmentation},
-  author={Yao, Yao and Cheng, Tao and Sun, Zhenhui and
-          Li, Linlong and Chen, Dongsheng and Chen, Ziheng and
-          Wei, Jianglin and Guan, Qingfeng},
-  journal={Environmental Modelling \& Software},
-  year={2022},
-  doi={10.1016/j.envsoft.2022.105325}
+    <pre>@article{YAO2022105325,
+  author = {Yao, Yao and Cheng, Tao and Sun, Zhenhui and Li, Linlong and Chen, Dongsheng and Chen, Ziheng and Wei, Jianglin and Guan, Qingfeng},
+  title = {VecLI: A framework for calculating vector landscape indices considering landscape fragmentation},
+  journal = {Environmental Modelling \& Software},
+  volume = {149},
+  pages = {105325},
+  year = {2022},
+  issn = {1364-8152},
+  doi = {10.1016/j.envsoft.2022.105325},
+  publisher = {Elsevier}
 }</pre>
   </div>
 </section>
 
 <footer class="footer">
-  <div class="container">&copy; 2025 Zhenhui Sun</div>
+  <div class="container">
+    &copy; 2025 Zhenhui Sun. All rights reserved.
+  </div>
 </footer>
 
 </body>
