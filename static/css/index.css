@@ -1,9 +1,7 @@
 /* ============================================
-   Academic Homepage — Clean Modern Style
-   Inspired by GitHub Profile README aesthetic
+   Academic Homepage — GitHub README Render Style
    ============================================ */
 
-/* ---------- Reset & Base ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -16,399 +14,154 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: #24292f;
-  background: #f6f8fa;
+  background: #fff;
   min-height: 100vh;
 }
 
-a {
+.markdown-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.markdown-body h1 {
+  font-size: 2em;
+  font-weight: 600;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d0d7de;
+}
+
+.markdown-body h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 24px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d0d7de;
+}
+
+.markdown-body h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 24px 0 16px;
+}
+
+.markdown-body h4 {
+  font-size: 1em;
+  font-weight: 600;
+  margin: 24px 0 8px;
+}
+
+.markdown-body h5 {
+  font-size: 0.875em;
+  font-weight: 600;
+  margin: 16px 0 4px;
+}
+
+.markdown-body p {
+  margin: 0 0 16px;
+}
+
+.markdown-body a {
   color: #0969da;
   text-decoration: none;
-  transition: color 0.15s ease;
 }
-a:hover {
+.markdown-body a:hover {
   color: #0550ae;
   text-decoration: underline;
 }
 
-img, svg {
+.markdown-body img {
   max-width: 100%;
-  display: block;
-}
-
-/* ---------- Top Bar ---------- */
-.topbar {
-  background: #24292f;
-  padding: 0 24px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.topbar a {
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 500;
-  text-decoration: none;
-  opacity: 0.8;
-  transition: opacity 0.15s;
-}
-.topbar a:hover {
-  opacity: 1;
-  text-decoration: none;
-}
-.topbar .brand {
-  font-weight: 600;
-  opacity: 1;
-  font-size: 15px;
-}
-
-/* ---------- Profile Hero ---------- */
-.profile {
-  max-width: 960px;
-  margin: 48px auto 0;
-  padding: 0 24px;
-  display: flex;
-  align-items: flex-start;
-  gap: 24px;
-}
-.profile-avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36px;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-.profile-info h1 {
-  font-size: 26px;
-  font-weight: 600;
-  color: #24292f;
-  line-height: 1.3;
-}
-.profile-info .subtitle {
-  font-size: 16px;
-  color: #57606a;
-  margin-top: 4px;
-  font-weight: 400;
-}
-.profile-info .org {
-  font-size: 14px;
-  color: #656d76;
-  margin-top: 2px;
-}
-
-/* ---------- Social Links ---------- */
-.profile-links {
-  display: flex;
-  gap: 12px;
-  margin-top: 12px;
-  flex-wrap: wrap;
-}
-.profile-links a {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  color: #57606a;
-  background: #f6f8fa;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  padding: 4px 12px;
-  transition: all 0.15s;
-  text-decoration: none;
-}
-.profile-links a:hover {
-  background: #f3f4f6;
-  border-color: #afb8c1;
-  color: #24292f;
-  text-decoration: none;
-}
-
-/* ---------- Research Interests ---------- */
-.interests-section {
-  max-width: 960px;
-  margin: 24px auto 0;
-  padding: 0 24px;
-}
-.interests-section h3 {
-  font-size: 14px;
-  font-weight: 600;
-  color: #57606a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
-.tag-cloud {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.tag {
   display: inline-block;
-  font-size: 13px;
-  font-weight: 500;
-  padding: 5px 14px;
-  border-radius: 20px;
-  border: 1px solid transparent;
-  transition: all 0.15s;
-  cursor: default;
-}
-.tag-1  { background: #ddf4ff; color: #0550ae; border-color: #b6e3ff; }
-.tag-2  { background: #dafbe1; color: #116329; border-color: #aceebb; }
-.tag-3  { background: #fff8c5; color: #896405; border-color: #f4d03f; }
-.tag-4  { background: #ffebe9; color: #a40e26; border-color: #ffc1ba; }
-.tag-5  { background: #fbefff; color: #6e40c9; border-color: #dbb8ff; }
-.tag-6  { background: #fff1e5; color: #9a4826; border-color: #ffc2a1; }
-
-/* ---------- Stats Row ---------- */
-.stats-row {
-  max-width: 960px;
-  margin: 28px auto 0;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-.stat-card {
-  background: #fff;
-  border: 1px solid #d0d7de;
-  border-radius: 10px;
-  padding: 18px 16px;
-  text-align: center;
-  transition: box-shadow 0.2s;
-}
-.stat-card:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-}
-.stat-card .stat-num {
-  font-size: 28px;
-  font-weight: 700;
-  color: #24292f;
-  line-height: 1.2;
-}
-.stat-card .stat-label {
-  font-size: 12px;
-  color: #656d76;
-  margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
+  vertical-align: middle;
 }
 
-/* ---------- Main Content ---------- */
-.main {
-  max-width: 960px;
-  margin: 32px auto 60px;
-  padding: 0 24px;
+.markdown-body img[src*="shields.io"] {
+  display: inline-block;
+  vertical-align: middle;
 }
 
-/* ---------- Section Header ---------- */
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #d0d7de;
-}
-.section-header h2 {
-  font-size: 18px;
-  font-weight: 600;
-  color: #24292f;
-}
-.section-header .count {
-  font-size: 13px;
-  color: #57606a;
+.markdown-body hr {
+  border: 0;
+  height: 1px;
   background: #d0d7de;
-  border-radius: 20px;
-  padding: 2px 10px;
-  font-weight: 500;
+  margin: 24px 0;
 }
 
-/* ---------- Year Group ---------- */
-.year-group {
-  margin-bottom: 28px;
-}
-.year-tag {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #0969da;
-  background: #ddf4ff;
-  border-radius: 6px;
-  padding: 3px 12px;
-  margin-bottom: 12px;
+.markdown-body code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+  font-size: 85%;
+  background: #f6f8fa;
+  border: 1px solid #e8eaed;
+  border-radius: 4px;
+  padding: 1px 5px;
 }
 
-/* ---------- Paper Card ---------- */
-.paper-card {
-  background: #fff;
+.markdown-body pre {
+  background: #f6f8fa;
   border: 1px solid #d0d7de;
   border-radius: 8px;
-  padding: 20px 22px;
-  margin-bottom: 12px;
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  transition: all 0.2s;
-  position: relative;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 0 0 16px;
 }
-.paper-card:hover {
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  border-color: #afb8c1;
-}
-.paper-card.selected {
-  border-left: 4px solid #8250df;
-}
-.paper-card .card-index {
-  flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #f6f8fa;
-  border: 1px solid #d0d7de;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 600;
-  color: #656d76;
-  margin-top: 2px;
-}
-.paper-card.selected .card-index {
-  background: #fbefff;
-  border-color: #dbb8ff;
-  color: #8250df;
-}
-.paper-card .card-body {
-  flex: 1;
-  min-width: 0;
-}
-.paper-card .card-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #24292f;
-  line-height: 1.4;
-  margin-bottom: 6px;
-}
-.paper-card .card-title a {
-  color: #0969da;
-}
-.paper-card .card-title a:hover {
-  color: #0550ae;
-}
-.paper-card .card-meta {
+
+.markdown-body pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
   font-size: 13px;
-  color: #57606a;
   line-height: 1.5;
 }
-.paper-card .card-authors {
-  font-size: 13px;
-  color: #656d76;
-  margin-top: 4px;
-}
-.paper-card .card-authors .me {
+
+.markdown-body strong {
   font-weight: 600;
-  color: #24292f;
-}
-.paper-card .card-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  flex-wrap: wrap;
-}
-.card-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 6px;
-  border: 1px solid #d0d7de;
-  background: #f6f8fa;
-  color: #57606a;
-  transition: all 0.15s;
-  text-decoration: none;
-}
-.card-badge:hover {
-  background: #eff2f5;
-  border-color: #afb8c1;
-  text-decoration: none;
-  color: #24292f;
-}
-.card-badge.doi {
-  color: #8250df;
-  border-color: #dbb8ff;
-  background: #fbefff;
-}
-.card-badge.doi:hover {
-  background: #f4e8ff;
-  border-color: #c8a2ff;
 }
 
-/* ---------- Footer ---------- */
-.footer {
-  max-width: 960px;
-  margin: 0 auto 48px;
-  padding: 24px;
-  text-align: center;
-  border-top: 1px solid #d0d7de;
-}
-.footer p {
-  font-size: 13px;
-  color: #656d76;
-}
-.footer a {
-  color: #57606a;
+.markdown-body em {
+  font-style: italic;
 }
 
-/* ---------- Responsive ---------- */
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 2em;
+  margin: 0 0 16px;
+}
+
+.markdown-body li {
+  margin: 4px 0;
+}
+
+.markdown-body blockquote {
+  border-left: 3px solid #d0d7de;
+  padding: 4px 16px;
+  color: #57606a;
+  margin: 0 0 16px;
+}
+
+/* shields.io badge alignment */
+.markdown-body > p > a > img[src*="shields.io"] {
+  margin-right: 4px;
+}
+
+/* tech icons row alignment */
+.markdown-body p[align="left"] a {
+  display: inline-block;
+  margin: 4px 2px;
+}
+
+/* sub text */
+.markdown-body sub {
+  font-size: 75%;
+}
+
 @media (max-width: 768px) {
-  .profile {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-top: 32px;
-    gap: 16px;
+  .markdown-body {
+    padding: 24px 16px 60px;
   }
-  .profile-info {
-    text-align: center;
-  }
-  .profile-links {
-    justify-content: center;
-  }
-  .stats-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .paper-card {
-    flex-direction: column;
-    gap: 12px;
-  }
-  .paper-card .card-index {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .stats-row {
-    grid-template-columns: 1fr;
-  }
-  .profile-avatar {
-    width: 72px;
-    height: 72px;
-    font-size: 28px;
-  }
-  .profile-info h1 {
-    font-size: 22px;
+  .markdown-body h1 {
+    font-size: 1.6em;
   }
 }

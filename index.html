@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zhenhui Sun (孙振辉)</title>
+  <link rel="icon" href="static/images/favicon.svg">
+  <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+  <div id="content" class="markdown-body">Loading...</div>
+
+  <script>
+    (function() {
+      const container = document.getElementById('content');
+
+      function parseMarkdown(md) {
+        let html = md;
+
+        // code blocks (```)
+        html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) => {
+          return '<pre><code class="language-' + lang + '">' + escapeHtml(code.trimEnd()) + '</code></pre>';
+        });
+
+        // inline code
+        html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+        // headings
+        html = html.replace(/^##### (.+)$/gm, '<h5>$1</h5>');
+        html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
+        html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+        html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+        html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+
+        // horizontal rules
+        html = html.replace(/^---$/gm, '<hr>');
+
+        // images with links: [![alt](img)](link)
+        html = html.replace(/\[!\[([^\]]*)\]\(([^)]+)\)\]\(([^)]+)\)/g,
+          '<a href="$3" target="_blank" rel="noreferrer"><img src="$2" alt="$1"></a>');
+
+        // images
+        html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+
+        // links
+        html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+
+        // bold
+        html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+        // italic
+        html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+        // paragraphs - split by double newline and wrap non-tag content
+        let lines = html.split('\n');
+        let result = [];
+        let buf = [];
+
+        function flush() {
+          let text = buf.join('\n').trim();
+          if (!text) return;
+          // don't wrap if it's already an HTML block element
+          if (/^<(h[1-6]|ul|ol|li|pre|hr|p|table|div|blockquote|img|a)[\s>]/.test(text)) {
+            result.push(text);
+          } else {
+            result.push('<p>' + text + '</p>');
+          }
+          buf = [];
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+          let line = lines[i];
+          // block-level elements reset buffer
+          if (/^<(h[1-6]|hr|pre|ul|ol|div|table|blockquote)/.test(line.trim()) ||
+              /^<p>/.test(line.trim()) ||
+              /^<a href/.test(line.trim()) && /<img/.test(line.trim())) {
+            flush();
+            result.push(line.trim());
+            continue;
+          }
+          if (line.trim() === '') {
+            flush();
+          } else {
+            buf.push(line);
+          }
+        }
+        flush();
+
+        return result.join('\n');
+      }
+
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      fetch('README.md')
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to load README.md');
+          return res.text();
+        })
+        .then(md => {
+          // strip YAML frontmatter if present
+          md = md.replace(/^---[\s\S]*?---\n*/, '');
+          container.innerHTML = parseMarkdown(md);
+        })
+        .catch(err => {
+          container.innerHTML = '<p>Failed to load content. Please ensure README.md exists.</p>';
+          console.error(err);
+        });
+    })();
+  </script>
+</body>
+</html>
