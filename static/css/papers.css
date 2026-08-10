@@ -153,12 +153,38 @@ body {
   font-size: 1.35rem;
   font-weight: 600;
   color: #1a1a2e;
-  margin-bottom: 16px;
+  margin: 0 0 20px 0;
+}
+
+.section h3 {
+  font-size: 1.08rem;
+  font-weight: 600;
+  color: #333;
+  margin: 28px 0 12px 0;
+}
+
+.section h3:first-child {
+  margin-top: 0;
 }
 
 .section p {
   margin-bottom: 12px;
   color: #444;
+}
+
+.section figure {
+  margin: 20px 0 24px 0;
+}
+
+.section ol {
+  margin: 12px 0;
+  padding-left: 24px;
+  color: #444;
+  line-height: 1.8;
+}
+
+.section ol li {
+  margin-bottom: 8px;
 }
 
 /* ===== BibTeX ===== */
