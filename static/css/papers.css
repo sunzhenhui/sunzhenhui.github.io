@@ -267,6 +267,26 @@ body {
   word-break: break-word;
 }
 
+/* ===== AI Summary Note ===== */
+.ai-summary-note {
+  padding: 20px 0;
+  background: #fffbf0;
+  border-top: 1px solid #f0e6cc;
+  border-bottom: 1px solid #f0e6cc;
+  text-align: center;
+}
+.ai-summary-note p {
+  color: #8b6914;
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+  line-height: 1.7;
+}
+.ai-summary-note .ai-summary-en {
+  color: #a68b3c;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
 /* ===== Footer ===== */
 .footer {
   text-align: center;
