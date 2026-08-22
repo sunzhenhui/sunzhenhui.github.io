@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GeoSDG | Zhenhui Sun</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Noto+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/papers.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+
+<nav class="back-nav">
+  <div class="container">
+    <a href="../">Zhenhui Sun</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <span class="venue-tag">International Journal of Geographical Information Science · 2026</span>
+    <h1>New Pathways for UN SDGs Spatialization: GeoSDG Toolkit Empowering the Sustainable Future under a Spatial Context</h1>
+    <p class="authors">
+      <strong>Zhenhui Sun</strong><sup>1</sup>, Minyi Gao<sup>1</sup>, Mengya Li, Ziheng Xu, Xia Li*
+    </p>
+    <p class="note"><sup>1</sup> Equal contribution. * Corresponding author.</p>
+    <p class="venue">International Journal of Geographical Information Science · 2026</p>
+    <p class="meta">DOI: <a href="https://doi.org/10.1080/13658816.2026.2717629" target="_blank">10.1080/13658816.2026.2717629</a></p>
+    <div class="links">
+      <a href="https://doi.org/10.1080/13658816.2026.2717629" target="_blank">Paper</a>
+      <a href="https://doi.org/10.1080/13658816.2026.2717629" target="_blank">DOI</a>
+      <a href="https://doi.org/10.6084/m9.figshare.29445089.v3" target="_blank">Code</a>
+    </div>
+  </div>
+</header>
+
+<section class="teaser">
+  <div class="container">
+    <img src="../static/images/geosdg-teaser.png" alt="GeoSDG Teaser"
+         onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Teaser image — place at static/images/geosdg-teaser.png</div>'">
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2>Abstract</h2>
+    <p>
+      The United Nations' Sustainable Development Goals (SDGs) provide a universal framework for addressing global
+      resource and environmental challenges. However, most existing assessments rely on historical statistical data at
+      coarse scales, often overlooking the explicit spatial dimension and the dynamic interactions between land-use
+      change and infrastructure expansion. To address this, we developed <strong>GeoSDG</strong>, an integrated modeling
+      toolkit that couples cellular automata (CA) models of land-use and infrastructure change with a spatial SDG
+      assessment framework. Unlike traditional static approaches, GeoSDG captures the co-evolution of land use and urban
+      infrastructure, achieving satisfactory simulation performance (<strong>Figure of Merit: 0.128 for land use, 0.263 for
+      infrastructure</strong>). By evaluating <strong>27 indicators across ten land-related SDGs</strong>, the framework is
+      broadly consistent with established UN SDG assessment principles. Applying GeoSDG to the
+      <strong>Yangtze River Delta from 2020 to 2050</strong> under multiple Shared Socioeconomic Pathways (SSPs), our
+      results reveal substantial spatial heterogeneity and identify approximately <strong>10% of the land area as
+      high-priority zones</strong> for targeted intervention. These findings highlight rapidly growing urban areas and
+      provide pathway-specific policy recommendations to support progress towards the 2030 and 2050 sustainability targets.
+    </p>
+    <div class="keywords">
+      <span>Keywords: </span>
+      <span class="tag">Sustainable Development Goals (SDGs)</span>
+      <span class="tag">Spatial sustainability</span>
+      <span class="tag">Geo-simulation toolkit</span>
+      <span class="tag">Cellular automata</span>
+      <span class="tag">Priority areas</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 1. Introduction ===== -->
+<section class="section">
+  <div class="container">
+    <h2>1. Introduction</h2>
+    <p>
+      The United Nations established the Sustainable Development Goals (SDGs) to address urgent global resource and
+      environmental challenges. Comprising <strong>17 goals, 169 targets, and more than 230 indicators</strong>, many of
+      these goals are inherently spatial and depend on land-use and infrastructure conditions. As the 2030 deadline
+      approaches, most countries are falling short, and some scholars have proposed extending the SDG framework to 2050
+      through a two-stage process — a scenario-based projection rather than retrospective assessment alone.
+    </p>
+    <p>
+      Existing studies calculate SDG scores at global, national, and regional scales, but they primarily analyze
+      historical data and lack dynamic simulations of future trends connected to policy interventions. Various modelling
+      frameworks — including the iSDG, International Futures (IFs), SDG-IO, and Threshold 21 (T21) models — emphasize
+      statistical and data-driven approaches and often overlook <strong>spatial variability and process-based spatial
+      dynamics</strong>, limiting their ability to identify where SDG synergies and conflicts emerge under alternative
+      pathways.
+    </p>
+    <p>
+      Land is a spatially defining variable, and cellular automata (CA) models are widely used to simulate urban land-use
+      change. However, existing CA-based models focus on land-use patterns alone and do not incorporate
+      <strong>infrastructure dynamics</strong>, which are equally crucial for SDG indicators related to accessibility and
+      service coverage. No existing framework simultaneously simulates both land use and infrastructure changes and
+      couples them with spatial SDG evaluation under future scenarios.
+    </p>
+    <p>
+      To address these limitations, this study introduces <strong>GeoSDG</strong>, a geo-simulation toolkit that integrates
+      CA-based simulations of land-use and infrastructure change with a spatially explicit SDG indicator system. GeoSDG
+      highlights three contributions: (1) incorporating CA techniques to address <strong>10 SDGs</strong> pertaining to
+      land use (SDG 2, 3, 4, 6, 7, 9, 11, 13, 14, and 15) with <strong>27 indicators</strong>; (2) introducing a CA-based
+      approach for simulating changes in <strong>infrastructure coverage</strong> alongside land-use change; and (3)
+      supporting the identification of critical timeframes, regional disparities, and <strong>priority areas</strong> for
+      sustainable development.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 2. Methodology ===== -->
+<section class="section">
+  <div class="container">
+    <h2>2. Methodology</h2>
+    <p>
+      The GeoSDG toolkit is an integrated and reusable framework designed to simulate how changes in land use and
+      infrastructure coverage affect the spatial dynamics of SDG performance. It consists of three modules: (1) a spatial
+      assessment framework for land-related SDGs; (2) CA-based simulation of land-use and infrastructure coverage
+      dynamics using raster data; and (3) iterative assessment of future SDG trajectories.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig1-framework.jpg" alt="GeoSDG toolkit framework">
+      <figcaption>Fig. 1. The GeoSDG toolkit consists of three essential steps for assessing spatially relevant SDGs: (1) Indicator Selection and Quantification; (2) Spatiotemporal Dynamic Simulation, Scoring, and Identification of Priority Areas; and (3) Future Sustainable Development Prospects.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/geosdg-fig2-interface.jpg" alt="GeoSDG toolkit graphical interface">
+      <figcaption>Fig. 2. Graphical main interface and function introduction of the GeoSDG toolkit.</figcaption>
+    </figure>
+
+    <h3>2.1 Evaluating Land-Related Indicators</h3>
+    <p>
+      Based on the UN global SDGs framework, a subset of <strong>10 SDGs and 17 targets</strong> most directly related to
+      land dynamics and spatial sustainability was selected, comprising a total of <strong>27 indicators</strong>. The
+      indicators are categorized into four types based on measurement method: Land Proportion Indicators, Land Conversion
+      Indicators, Buffer Zone Indicators, and Total Statistics Indicators. Indicators are normalized to a range of 0–100,
+      with positive, negative, and neutral indicators reflecting better sustainability at higher, lower, and
+      closer-to-optimal values, respectively.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig3-indicator-calculation.jpg" alt="SDG indicator calculation procedure">
+      <figcaption>Fig. 3. Procedure for calculating spatially explicit land-related SDG indicators.</figcaption>
+    </figure>
+
+    <h3>2.2 Spatial Feature Simulation Using CA Models</h3>
+    <p>
+      GeoSDG uses two separate CA models to simulate future land use and infrastructure coverage. The
+      <strong>CALUCC</strong> model simulates land-use dynamics by integrating the overall transition probability (derived
+      from a random forest model), the neighbourhood effect, a self-adaptive inertia coefficient, a constraint factor, and
+      a random factor. The <strong>CAINFRA</strong> model is a simplified CA distinguishing two states (covered / not
+      covered by infrastructure), using a random forest to estimate infrastructure coverage probability and a competitive
+      patch-seeding mechanism to simulate cell-level evolution.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig4-infrastructure.jpg" alt="Infrastructure coverage simulation framework">
+      <figcaption>Fig. 4. The structure of the rule mining and simulation framework for infrastructure coverage.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/geosdg-fig5-coupling.jpg" alt="SDG assessment and CA simulation coupling">
+      <figcaption>Fig. 5. Mechanisms for interactive coupling of the SDG assessment and CA simulation.</figcaption>
+    </figure>
+
+    <h3>2.3 Accuracy Assessment</h3>
+    <p>
+      The validation comprises three components: the Figure of Merit (FoM) and Overall Accuracy (OA) evaluate the
+      performance of the two CA models, and a correlation analysis assesses the reliability of GeoSDG-derived SDG scores
+      against reference assessments. FoM values between 0.1 and 0.3 and OA values above 0.8 indicate satisfactory
+      performance in land-use simulations.
+    </p>
+
+    <h3>2.4 Identifying Priority Areas</h3>
+    <p>
+      Priority areas are identified in four categories: (1) Land Use Proportion and Transition Priority Areas; (2)
+      Infrastructure Service Area Priority Areas; (3) "Human-Land Relationship" Priority Areas (SDG 11.3.1); and (4)
+      "Peak Carbon" Priority Areas (SDG 13.2.2). Priority layers are overlaid to produce an integrated ranking,
+      categorizing regions into four priority levels: Low, Moderate, High, and Critical.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig6-priority-areas.jpg" alt="Priority area identification">
+      <figcaption>Fig. 6. Schematic diagram for identifying priority areas of sustainability.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== 3. Application ===== -->
+<section class="section">
+  <div class="container">
+    <h2>3. Application in the Yangtze River Delta Urban Agglomeration</h2>
+
+    <h3>3.1 Case Study Area and Data Sources</h3>
+    <p>
+      This study focuses on the <strong>Yangtze River Delta Urban Agglomeration (YRDUA)</strong>, a key urban agglomeration
+      in eastern China covering <strong>211,700 km²</strong> and comprising <strong>27 cities</strong> across Shanghai,
+      Jiangsu, Zhejiang, and Anhui. With its diverse city composition and development stages, significant economic output
+      (approximately one-fifth of China's GDP), and pressing sustainability challenges, the YRDUA is an ideal case study
+      for exploring spatially differentiated sustainable development strategies.
+    </p>
+    <p>
+      Land-use data (2010–2020) were sourced from China's CNLUCC dataset and reclassified into six types (arable land,
+      forest, grassland, water, urban land, and unused land). Multi-source geographic data — including topography,
+      transportation, location, and various POIs — were used as driving factors, resampled to 30 m and normalized between
+      0 and 1. Infrastructure coverage was derived from GaoDe POI data using kernel density estimation (KDE) with a 200 m
+      bandwidth.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig7-yrdua.jpg" alt="Geographical position of YRDUA">
+      <figcaption>Fig. 7. Geographical position of the Yangtze River Delta Urban Agglomeration (YRDUA).</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/geosdg-fig8-driving-factors.jpg" alt="Spatial driving factors for YRDUA">
+      <figcaption>Fig. 8. Spatial driving factors for the YRDUA region.</figcaption>
+    </figure>
+
+    <h3>3.2 Implementation Results and Validation</h3>
+    <p>
+      Simulations of land-use and infrastructure coverage dynamics were conducted within the YRDUA at a 30 m resolution.
+      The model performs satisfactorily, with a <strong>FoM of 0.128 and OA of 0.815</strong> for CALUCC, and a
+      <strong>FoM of 0.263 and OA of 0.923</strong> for CAINFRA. More than 70% of administrative units achieved FoM
+      accuracy greater than 0.1, and more than 90% achieved OA accuracy greater than 0.8. Correlation analysis between
+      GeoSDG scores and reference assessments showed strong correlation for SDG 11 (0.898) and SDG 15 (0.831), and
+      moderate correlation for SDG 3, 4, and 6.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 4. Results ===== -->
+<section class="section">
+  <div class="container">
+    <h2>4. Results</h2>
+
+    <h3>4.1 Temporal Trends in SDG Development (2020–2050)</h3>
+    <p>
+      Five development scenarios based on integrated SSPs (SSP1–5), ranging from optimistic to pessimistic, were
+      investigated. The results indicate an upward trend in SDG scores across all scenarios from 2020 to 2050. SSP1, SSP2,
+      and SSP5 reach the highest sustainability scores by 2050, with SSP1 and SSP2 strongest in environmental and social
+      dimensions and SSP5 strongest economically. At the indicator level, SDG 6, 7, 13, and 14 show strong gains, while
+      SDG 2 and 15 decline consistently, and SDG 11 exhibits marked volatility.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig9-temporal-trends.jpg" alt="Temporal trends of SDGs under SSP scenarios">
+      <figcaption>Fig. 9. Temporal trends of the SDGs under different SSP scenarios.</figcaption>
+    </figure>
+
+    <h3>4.2 Spatial Heterogeneity in Pursuing Sustainability</h3>
+    <p>
+      The YRDUA's 2020 spatial pattern is characterized by <strong>"central high, north and south low"</strong>. By 2030,
+      SSP2 and SSP4 show the smallest improvements, while SSP3 exhibits the greatest inter-city imbalance. By 2050,
+      initially underdeveloped areas improve most notably, with SSP3 showing the largest uplift and SSP4 displaying the
+      greatest regional disparity.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig10-spatial-patterns.jpg" alt="Spatial patterns of SDGs under SSPs">
+      <figcaption>Fig. 10. Spatial patterns of the SDGs under SSPs. Panels (a1–e1) represent 2030, while panels (a2–e2) represent 2050.</figcaption>
+    </figure>
+
+    <h3>4.3 Priority Areas for Sustainability</h3>
+    <p>
+      By 2030, SSP3 demands the largest priority area (>15,000 km²) and SSP2 the least (8,667 km²). By 2050, SSP3 remains
+      largest (22,853 km²) while SSP2 expands most rapidly. Priority areas were concentrated in rapidly developing cities
+      in <strong>southern Jiangsu, northern Zhejiang, and eastern Anhui</strong>, where urban development pressure
+      coincided with existing sustainability deficits.
+    </p>
+
+    <figure>
+      <img src="../static/images/geosdg-fig11-priority-distribution.jpg" alt="Priority areas under SSPs">
+      <figcaption>Fig. 11. Spatial distribution of priority areas for sustainability under SSPs from 2020 to 2050.</figcaption>
+    </figure>
+
+    <figure>
+      <img src="../static/images/geosdg-fig12-selected-areas.jpg" alt="Selected areas illustrating priority for sustainability">
+      <figcaption>Fig. 12. Spatial distribution of selected areas illustrating priority for sustainability under different SSPs by 2050.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== 5. Discussion ===== -->
+<section class="section">
+  <div class="container">
+    <h2>5. Discussion</h2>
+    <p>
+      GeoSDG extends conventional retrospective SDG assessments into a forward-looking and spatially dynamic modelling
+      framework. The inclusion of the <strong>CAINFRA</strong> module further expands conventional land-use CA modelling by
+      representing changes in infrastructure coverage, which are essential for accessibility- and service-related SDG
+      indicators.
+    </p>
+    <p>
+      The validation results indicate that GeoSDG performs especially well for spatially explicit indicators directly
+      linked to land-cover and ecological attributes (SDGs 11 and 15, r > 0.8), whereas its weaker performance for SDGs 2,
+      7, 9, and 13 reflects the limitations of spatial proxies for indicators shaped by complex socioeconomic processes.
+      For these indicators, GeoSDG should complement rather than replace conventional statistical monitoring.
+    </p>
+    <p>
+      GeoSDG's modular structure gives the framework the potential to be adapted to regions where fine-scale statistical
+      data are limited but suitable geospatial data are available. However, its transferability remains conceptual because
+      it has so far been demonstrated only in the YRDUA, a highly urbanized region with dense infrastructure data.
+      Applying GeoSDG elsewhere would require locally appropriate data, recalibration of the CA models, and adaptation of
+      the indicator system, thresholds, and weights.
+    </p>
+    <p>
+      By linking SDG trajectories, spatial heterogeneity, and scenario-dependent trade-offs, GeoSDG provides a structured
+      basis for adaptive and spatially targeted policy analysis. The location, extent, and composition of priority areas
+      varied across scenarios — some remained stable, indicating persistent constraints, whereas others shifted
+      substantially, reflecting scenario-dependent risks.
+    </p>
+  </div>
+</section>
+
+<!-- ===== 6. Conclusion ===== -->
+<section class="section">
+  <div class="container">
+    <h2>6. Conclusion</h2>
+    <p>
+      This study introduces <strong>GeoSDG</strong>, a geo-simulation toolkit that integrates cellular automata with SSPs
+      to simulate future land-use and infrastructure change and assess their implications for SDG performance. The main
+      contributions are:
+    </p>
+    <ol>
+      <li>A <strong>spatially explicit geo-simulation toolkit</strong> that links CA-based simulations of land-use and
+      infrastructure dynamics with spatial SDG evaluation, extending static and single-scale assessments into a
+      forward-looking framework.</li>
+      <li>A <strong>CA-based approach for infrastructure coverage simulation</strong> (CAINFRA), expanding conventional
+      land-use CA modelling to capture accessibility- and service-related SDG indicators.</li>
+      <li>A framework for identifying <strong>when, where, and to what extent</strong> SDG performance changes, and for
+      pinpointing grid-level intervention priorities under alternative scenarios.</li>
+      <li>Application to the YRDUA (2020–2050) revealing persistent trade-offs between urban growth and the protection of
+      arable land and forests, a critical fluctuation period between 2030 and 2035, and priority areas concentrated in
+      rapidly developing cities.</li>
+    </ol>
+    <p>
+      The GeoSDG toolkit is available as an open-source C++ program under the GPL-3.0 license, with comprehensive
+      documentation and source code for complete analysis workflows and customization.
+    </p>
+  </div>
+</section>
+
+<!-- ===== BibTeX ===== -->
+<section class="bibtex">
+  <div class="container">
+    <h2>BibTeX</h2>
+    <pre>
+@article{Sun20082026,
+    author = {Zhenhui Sun and Minyi Gao and Mengya Li and Ziheng Xu and Xia Li},
+    title = {New pathways for UN SDGs spatialization: GeoSDG toolkit empowering the sustainable future under a spatial context},
+    journal = {International Journal of Geographical Information Science},
+    volume = {0},
+    number = {0},
+    pages = {1--24},
+    year = {2026},
+    publisher = {Taylor \& Francis},
+    doi = {10.1080/13658816.2026.2717629},
+    URL = {https://doi.org/10.1080/13658816.2026.2717629},
+    eprint = {https://doi.org/10.1080/13658816.2026.2717629}
+}
+    </pre>
+  </div>
+</section>
+
+<div class="ai-summary-note">
+  <div class="container">
+    <p>本文内容由 DeepSeek-V4 Pro AI 自动总结生成，仅供参考。详细信息请以原文为准。</p>
+    <p class="ai-summary-en">Content on this page is AI-summarized by DeepSeek-V4 Pro. Please refer to the original publication for authoritative information.</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">&copy; 2026 Zhenhui Sun</div>
+</footer>
+
+</body>
+</html>
